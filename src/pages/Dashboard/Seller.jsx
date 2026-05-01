@@ -27,7 +27,6 @@ export default function Seller() {
         name: "",
         password: "",
         confirmPassword: "",
-        address: "",
         phone: ""
     });
 
@@ -292,29 +291,8 @@ export default function Seller() {
 
                                 <div className="bg-white p-5 rounded-xl shadow">
                                     <p className="text-gray-600">Books</p>
-                                    <h2 className="text-2xl font-bold">{booksCount}</h2> {view === "dashboard" && (
-                        <div>
-                            <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+                                    <h2 className="text-2xl font-bold">{booksCount}</h2>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                                <div className="bg-white p-6 rounded-xl shadow">
-                                    <h2 className="text-gray-600">Total Products</h2>
-                                    <p className="text-3xl font-bold text-[#6b61e2]">
-                                        {products.length}
-                                    </p>
-                                </div>
-
-                                <div className="bg-white p-6 rounded-xl shadow">
-                                    <h2 className="text-gray-600">Total Products</h2>
-                                    <p className="text-3xl font-bold text-[#6b61e2]">
-                                        {products.length}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
-                    )}
                                 </div>
 
                             </div>
@@ -373,8 +351,6 @@ export default function Seller() {
                                 <input type="password" name="password" onChange={handleProfileChange} placeholder="New Password" className="w-full text-black p-3 border rounded-xl" />
 
                                 <input type="password" name="confirmPassword" onChange={handleProfileChange} placeholder="Confirm Password" className="w-full p-3 text-black border rounded-xl" />
-
-                                <input name="address" onChange={handleProfileChange} placeholder="Address" className="w-full p-3 border text-black rounded-xl" />
 
                                 <input name="phone" onChange={handleProfileChange} placeholder="Phone Number" className="w-full p-3 border text-black rounded-xl" />
 
