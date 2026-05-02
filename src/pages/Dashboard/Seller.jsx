@@ -24,7 +24,7 @@ export default function Seller() {
     const [showProfileModal, setShowProfileModal] = useState(false);
 
     const [profile, setProfile] = useState({
-        name: "",
+        firstName: "",
         password: "",
         confirmPassword: "",
         phone: ""
@@ -346,7 +346,8 @@ export default function Seller() {
 
                             <form onSubmit={handleProfileSubmit} className="space-y-4">
 
-                                <input name="name" onChange={handleProfileChange} placeholder="Name" className="w-full text-black p-3 border rounded-xl" />
+                                <input name="firstName" onChange={handleProfileChange} placeholder="Name" value={profile.firstName}
+                                    className="w-full text-black p-3 border rounded-xl" />
 
                                 <input type="password" name="password" onChange={handleProfileChange} placeholder="New Password" className="w-full text-black p-3 border rounded-xl" />
 
@@ -356,7 +357,8 @@ export default function Seller() {
 
                                 <input value="seller@email.com" disabled className="w-full p-3 border rounded-xl bg-gray-100 text-gray-500" />
 
-                                <button className="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-800">
+                                <button 
+                                className="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-800">
                                     Save Changes
                                 </button>
 
