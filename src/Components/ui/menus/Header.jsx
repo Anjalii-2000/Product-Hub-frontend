@@ -39,6 +39,7 @@ export const Header = ({ setCategory }) => {
 
                     <Link to="/" className="flex items-center flex-shrink-0">
                         <img
+                          onClick={() => window.location.reload()}
                             src={logo}
                             alt="logo"
                             className="w-auto h-16 transition-transform duration-300 "
