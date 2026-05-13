@@ -23,8 +23,6 @@ export default function EditProfile({
 
         try {
 
-            const token = localStorage.getItem("token");
-
             const res = await axios.put(
                 "http://localhost:3000/api/update-profile",
                 {
@@ -34,9 +32,7 @@ export default function EditProfile({
                     phone: profile.phone
                 },
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    withCredentials: true
                 }
             );
 
@@ -48,7 +44,7 @@ export default function EditProfile({
 
         } catch (error) {
 
-            alert(error.response?.data?.message);
+            alert(error.response?.data?.message || "Error updating profile");
         }
     };
 
@@ -122,6 +118,7 @@ export default function EditProfile({
                     </button>
 
                 </form>
+
             </div>
         </div>
     );

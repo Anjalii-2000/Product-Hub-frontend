@@ -21,7 +21,6 @@ export default function ProductModal({
     };
 
     const handleImageChange = (e) => {
-
         const file = e.target.files[0];
 
         setForm({
@@ -35,13 +34,9 @@ export default function ProductModal({
     };
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
 
         try {
-
-            const token = localStorage.getItem("token");
-
             const formData = new FormData();
 
             formData.append("productName", form.productName);
@@ -63,15 +58,12 @@ export default function ProductModal({
                 method,
                 url,
                 data: formData,
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                withCredentials: true // ✅ IMPORTANT for cookies
             });
 
             fetchProducts();
 
             setShowModal(false);
-
             setEditingId(null);
 
             setForm({
@@ -85,7 +77,7 @@ export default function ProductModal({
             setPreviewImage("");
 
         } catch (error) {
-            console.log(error);
+            console.log("Product submit error:", error);
         }
     };
 
@@ -93,11 +85,9 @@ export default function ProductModal({
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-
             <div className="bg-white w-[500px] p-6 rounded-xl">
 
                 <div className="flex justify-between mb-4">
-
                     <h2 className="text-xl font-bold">
                         {editingId ? "Edit Product" : "Add Product"}
                     </h2>
@@ -105,13 +95,9 @@ export default function ProductModal({
                     <button onClick={() => setShowModal(false)}>
                         ✖
                     </button>
-
                 </div>
 
-                <form
-                    onSubmit={handleSubmit}
-                    className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4">
 
                     <input
                         type="file"
@@ -122,7 +108,7 @@ export default function ProductModal({
                     {previewImage && (
                         <img
                             src={previewImage}
-                            alt=""
+                            alt="preview"
                             className="h-40 w-full object-cover rounded"
                         />
                     )}

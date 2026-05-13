@@ -1,19 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios";
 import logo from "../../assets/logo.jpeg";
+
+const BASE_URL = "http://localhost:3000";
 
 export default function Topbar({ sellerName }) {
 
     const [showMenu, setShowMenu] = useState(false);
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        try {
+            await axios.post(
+                `${BASE_URL}/api/logout`,
+                {},
+                {
+                    withCredentials: true
+                }
+            );
 
-        localStorage.removeItem("token");
+            window.location.href = "/login";
 
-        window.location.href = "/login";
+        } catch (error) {
+            console.log("Logout error:", error);
+        }
     };
 
     return (
-
         <div className="fixed top-0 left-0 w-full bg-white shadow z-50 flex items-center justify-between px-6 py-3">
 
             {/* LOGO */}
@@ -36,7 +48,6 @@ export default function Topbar({ sellerName }) {
 
                 {/* DROPDOWN */}
                 {showMenu && (
-
                     <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg">
 
                         <button
@@ -48,7 +59,6 @@ export default function Topbar({ sellerName }) {
 
                     </div>
                 )}
-
             </div>
 
         </div>

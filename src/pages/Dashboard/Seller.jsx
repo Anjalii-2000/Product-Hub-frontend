@@ -12,13 +12,9 @@ import EditProfile from "../../Components/SellerAllComponents/EditProfile";
 export default function Seller() {
 
     const [view, setView] = useState("dashboard");
-
     const [sellerName, setSellerName] = useState("");
-
     const [products, setProducts] = useState([]);
-
     const [showModal, setShowModal] = useState(false);
-
     const [showProfileModal, setShowProfileModal] = useState(false);
 
     const [form, setForm] = useState({
@@ -30,7 +26,6 @@ export default function Seller() {
     });
 
     const [previewImage, setPreviewImage] = useState("");
-
     const [editingId, setEditingId] = useState(null);
 
     const [profile, setProfile] = useState({
@@ -49,14 +44,10 @@ export default function Seller() {
 
         try {
 
-            const token = localStorage.getItem("token");
-
             const res = await axios.get(
                 "http://localhost:3000/api/me",
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    withCredentials: true
                 }
             );
 
@@ -78,14 +69,10 @@ export default function Seller() {
 
         try {
 
-            const token = localStorage.getItem("token");
-
             const res = await axios.get(
                 "http://localhost:3000/api/my-product",
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    withCredentials: true
                 }
             );
 
@@ -99,9 +86,7 @@ export default function Seller() {
     return (
         <div className="min-h-screen bg-gray-100">
 
-            <Topbar
-                sellerName={sellerName}
-            />
+            <Topbar sellerName={sellerName} />
 
             <div className="flex pt-16">
 
@@ -130,9 +115,7 @@ export default function Seller() {
                     )}
 
                     {view === "settings" && (
-                        <Settings
-                            setShowProfileModal={setShowProfileModal}
-                        />
+                        <Settings setShowProfileModal={setShowProfileModal} />
                     )}
 
                 </div>

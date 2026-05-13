@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from "../../assets/Images/Image.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:3000/api";
 
 const RegisterPage = () => {
 
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -19,10 +19,6 @@ const RegisterPage = () => {
     role: "",
   });
 
-  console.log(formData, "formmmm")
-  const isFormValid = formData.firstName.trim() && formData.email.trim() && formData.password.trim() && formData.phone.trim() && formData.role;;
-
-
   const [error, setError] = useState({
     firstName: "",
     email: "",
@@ -30,8 +26,17 @@ const RegisterPage = () => {
     phone: ""
   });
 
+  const isFormValid =
+    formData.firstName.trim() &&
+    formData.email.trim() &&
+    formData.password.trim() &&
+    formData.phone.trim() &&
+    formData.role;
+
   const handleChange = (event) => {
+
     const { name, value } = event.target;
+
     let errorMsg = "";
 
     if (name === "firstName") {
@@ -39,9 +44,10 @@ const RegisterPage = () => {
         errorMsg = "First name must be less than 15 characters";
       }
     }
+
     if (name === "email") {
       if (!value.includes("@")) {
-        errorMsg = "Enter a valid email";
+        errorMsg = "Enter valid email";
       }
     }
 
@@ -53,96 +59,70 @@ const RegisterPage = () => {
 
     if (name === "phone") {
       if (value.length !== 10) {
-        errorMsg = "Enter a valid phone number";
+        errorMsg = "Enter valid phone number";
       }
     }
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setError((prev) => ({ ...prev, [name]: errorMsg }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+
+    setError((prev) => ({
+      ...prev,
+      [name]: errorMsg
+    }));
   };
-    
+
   const handleClick = async (e) => {
+
     e.preventDefault();
 
     if (!formData.role) {
-      toast.error("Please select a role ");
-      return;
-    }
-    if (
-      !formData.firstName ||
-      !formData.email ||
-      formData.password.length <= 6 ||
-      formData.phone.length !== 10
-    ) {
-      toast.error("Please fill all fields correctly ");
+      toast.error("Please select role");
       return;
     }
 
     try {
+
       const response = await axios.post(
         `${API_URL}/register`,
         formData,
+        {
+          withCredentials: true
+        }
       );
-      const { token, user, message, role } = response.data;
 
-      localStorage.setItem("token", token);
-      const { password, ...safeData } = user;
+      toast.success(
+        response.data.message || "Registered Successfully"
+      );
 
-      localStorage.setItem("user", JSON.stringify(user));
+      setTimeout(() => {
 
-      navigate(`/dashboard/${formData.role}`);
+        if (formData.role === "seller") {
+          navigate("/dashboard/seller");
+        } else {
+          navigate("/dashboard/customer");
+        }
 
-      localStorage.setItem("userData", JSON.stringify(safeData));
-
-      toast.success(response.data.message || "Registered Successfully ");
-
+      }, 1000);
 
       setFormData({
         firstName: "",
         email: "",
         password: "",
-        phone: ""
-      });
-
-      setError({
-        firstName: "",
-        email: "",
-        password: "",
-        phone: ""
+        phone: "",
+        role: ""
       });
 
     } catch (error) {
-      if (error.response) {
-        toast.error(error.response.data.message || "Registration failed ");
-      } else {
-        toast.error("Network or server error ");
-        console.log("Network error:", error);
-      }
+
+      toast.error(
+        error.response?.data?.message ||
+        "Registration failed"
+      );
     }
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/dashboard");
-      return;
-    }
-
-
-    const savedData = localStorage.getItem("userData");
-
-    if (savedData) {
-      const parsedData = JSON.parse(savedData);
-
-      setFormData({
-        firstName: parsedData.firstName || "",
-        email: parsedData.email || "",
-        password: "",
-        phone: parsedData.phone || ""
-      });
-    }
-
-  }, [navigate]);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row font-serif bg-gradient-to-br from-gray-50 to-gray-100">
@@ -150,140 +130,176 @@ const RegisterPage = () => {
       <ToastContainer position="top-right" autoClose={2000} />
 
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <div className="relative">
-          <div className="absolute inset-0 bg-white blur-3xl opacity-30 rounded-full"></div>
-          <img
-            src={Image}
-            alt="Register"
-            className="relative w-[500px] md:w-[650px] object-contain"
-          />
-        </div>
+
+        <img
+          src={Image}
+          alt="Register"
+          className="w-[500px] md:w-[650px] object-contain"
+        />
+
       </div>
 
       <div className="w-full md:w-1/2 flex items-center justify-center p-6">
+
         <div className="w-full max-w-lg p-10 bg-white rounded-2xl shadow-xl border border-gray-200">
 
-          <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold text-center mb-8">
             Create Your Account
           </h2>
 
           <form className="space-y-6">
 
-            {/* First Name */}
             <div className="flex flex-col">
-              <label className="mb-1 text-left text-sm font-semibold text-gray-700">
+
+              <label className="mb-1 text-left text-sm font-semibold">
                 First Name
               </label>
+
               <input
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="Enter Your Name"
-                className="w-full px-4 py-3 text-base text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none transition"
+                className="w-full px-4 py-3 text-black border rounded-lg"
               />
-              <p className="text-red-500 text-sm mt-1 text-left">{error.firstName}</p>
+
+              <p className="text-red-500 text-sm mt-1">
+                {error.firstName}
+              </p>
+
             </div>
 
-            {/* Email */}
             <div className="flex flex-col">
-              <label className="mb-1 text-left text-sm font-semibold text-gray-700">
+
+              <label className="mb-1 text-left text-sm font-semibold">
                 Email Address
               </label>
+
               <input
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="example@email.com"
-                className="w-full px-4 py-3 text-base text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none transition"
+                className="w-full px-4 py-3 text-black border rounded-lg"
               />
-              <p className="text-red-500 text-sm mt-1 text-left">{error.email}</p>
+
+              <p className="text-red-500 text-sm mt-1">
+                {error.email}
+              </p>
+
             </div>
 
-            {/* Password */}
             <div className="flex flex-col">
-              <label className="mb-1 text-left text-sm font-semibold text-gray-700">
+
+              <label className="mb-1 text-left text-sm font-semibold">
                 Password
               </label>
+
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter Password"
-                className="w-full px-4 py-3 text-base text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none transition"
+                className="w-full px-4 py-3 text-black border rounded-lg"
               />
-              <p className="text-red-500 text-left text-sm mt-1">{error.password}</p>
+
+              <p className="text-red-500 text-sm mt-1">
+                {error.password}
+              </p>
+
             </div>
 
-
             <div className="flex flex-col">
-              <label className="mb-1 text-left text-sm font-semibold text-gray-700">
+
+              <label className="mb-1 text-left text-sm font-semibold">
                 Phone Number
               </label>
+
               <input
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Enter Phone Number"
-                className="w-full px-4 py-3 text-base text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none transition"
+                className="w-full px-4 py-3 text-black border rounded-lg"
               />
-              <p className="text-red-500 text-left text-sm mt-1">{error.phone}</p>
+
+              <p className="text-red-500 text-sm mt-1">
+                {error.phone}
+              </p>
+
             </div>
 
-
             <div className="flex flex-col">
-              <label className="mb-2 text-left text-sm font-semibold text-gray-700">
+
+              <label className="mb-2 text-left text-sm font-semibold">
                 Select Account Type
               </label>
+
               <div className="flex gap-4">
+
                 <button
                   type="button"
                   onClick={() => {
-                    setFormData((prev) => ({ ...prev, role: "customer" }));
+                    setFormData((prev) => ({
+                      ...prev,
+                      role: "customer"
+                    }));
                   }}
-                  className="w-full py-2 rounded-lg border border-indigo-400 text-indigo-600 hover:bg-indigo-500 hover:text-white transition"
+                  className="w-full py-2 rounded-lg border"
                 >
                   Customer
                 </button>
+
                 <button
                   type="button"
                   onClick={() => {
-                    setFormData((prev) => ({ ...prev, role: "seller" }));
-
-
+                    setFormData((prev) => ({
+                      ...prev,
+                      role: "seller"
+                    }));
                   }}
-                  className="w-full py-2 rounded-lg border border-green-400 text-green-600 hover:bg-green-500 hover:text-white transition"
+                  className="w-full py-2 rounded-lg border"
                 >
                   Seller
                 </button>
-              </div>
-            </div>
 
+              </div>
+
+            </div>
 
             <button
               onClick={handleClick}
               type="submit"
               disabled={!isFormValid}
-              className={`w-full mt-2 py-3 rounded-lg bg-purple-500 font-semibold transition duration-300 shadow-md
-    ${isFormValid
-                  ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:scale-[1.02] hover:shadow-lg"
+              className={`w-full py-3 rounded-lg
+              ${isFormValid
+                  ? "bg-purple-500 text-white"
                   : "bg-gray-400 text-white cursor-not-allowed"
                 }`}
             >
               Sign Up
             </button>
 
-            {/* Footer */}
-            <p className="text-center text-sm text-gray-600 mt-9">
+            <p className="text-center text-sm text-gray-600">
+
               Already have an account?{" "}
-              <Link to="/login" className="text-purple-600 font-semibold hover:underline">
+
+              <Link
+                to="/login"
+                className="text-purple-600 font-semibold hover:underline"
+              >
                 Log in
               </Link>
+
             </p>
 
           </form>
+
         </div>
+
       </div>
+
     </div>
   );
 };

@@ -1,13 +1,20 @@
 import React from "react";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:3000";
 
 export default function Products({
     products = [],
+    setProducts,        // ✅ IMPORTANT for delete/update UI
     setEditingId,
     setForm,
     setPreviewImage,
     setShowModal
 }) {
 
+    // ========================
+    // EDIT PRODUCT
+    // ========================
     const handleEdit = (item) => {
 
         setForm({
@@ -15,25 +22,53 @@ export default function Products({
             price: item.price,
             category: item.category,
             description: item.description,
-            image: null
+            image: null // user can re-upload image
         });
 
-        setPreviewImage(`http://localhost:3000${item.image}`);
+        setPreviewImage(
+            item.image ? `${BASE_URL}${item.image}` : ""
+        );
 
         setEditingId(item._id);
-
         setShowModal(true);
     };
 
-    return (
+    // ========================
+    // DELETE PRODUCT (Optimistic UI)
+    // ========================
+    const handleDelete = async (id) => {
 
+        const previousProducts = [...products];
+
+        try {
+            // 1. Optimistic UI update (instant remove)
+            setProducts((prev) =>
+                prev.filter((item) => item._id !== id)
+            );
+
+            // 2. API call
+            await axios.delete(
+                `${BASE_URL}/api/delete-product/${id}`,
+                {
+                    withCredentials: true // ✅ cookie auth
+                }
+            );
+
+        } catch (error) {
+            console.log("Delete failed:", error);
+
+            // 3. rollback if error
+            setProducts(previousProducts);
+        }
+    };
+
+    return (
         <div className="w-full">
 
             {/* HEADER */}
             <div className="flex items-center justify-between mb-8">
 
                 <div>
-
                     <h1 className="text-3xl font-bold text-gray-800">
                         Products
                     </h1>
@@ -41,7 +76,6 @@ export default function Products({
                     <p className="text-gray-500 mt-1">
                         Manage all your products here
                     </p>
-
                 </div>
 
                 <button
@@ -50,14 +84,11 @@ export default function Products({
                 >
                     + Add Product
                 </button>
-
             </div>
 
-            {/* EMPTY */}
+            {/* EMPTY STATE */}
             {products.length === 0 ? (
-
                 <div className="bg-white rounded-2xl shadow-md p-10 text-center">
-
                     <h2 className="text-2xl font-semibold text-gray-700">
                         No Products Found
                     </h2>
@@ -65,16 +96,12 @@ export default function Products({
                     <p className="text-gray-500 mt-2">
                         Start by adding your first product
                     </p>
-
                 </div>
-
             ) : (
-
                 /* PRODUCT GRID */
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
                     {products.map((item) => (
-
                         <div
                             key={item._id}
                             className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100"
@@ -82,13 +109,13 @@ export default function Products({
 
                             {/* IMAGE */}
                             <div className="overflow-hidden">
-
-                                <img
-                                    src={`http://localhost:3000${item.image}`}
-                                    alt=""
-                                    className="h-52 w-full object-cover hover:scale-105 transition duration-500"
-                                />
-
+                                {item.image && (
+                                    <img
+                                        src={`${BASE_URL}${item.image}`}
+                                        alt={item.productName}
+                                        className="h-52 w-full object-cover hover:scale-105 transition duration-500"
+                                    />
+                                )}
                             </div>
 
                             {/* CONTENT */}
@@ -112,16 +139,15 @@ export default function Products({
 
                                 {/* CATEGORY */}
                                 <div className="mt-4">
-
                                     <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">
                                         {item.category}
                                     </span>
-
                                 </div>
 
                                 {/* BUTTONS */}
                                 <div className="flex gap-3 mt-5">
 
+                                    {/* EDIT */}
                                     <button
                                         onClick={() => handleEdit(item)}
                                         className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl transition"
@@ -129,7 +155,9 @@ export default function Products({
                                         Edit
                                     </button>
 
+                                    {/* DELETE */}
                                     <button
+                                        onClick={() => handleDelete(item._id)}
                                         className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl transition"
                                     >
                                         Delete
@@ -138,13 +166,11 @@ export default function Products({
                                 </div>
 
                             </div>
-
                         </div>
                     ))}
 
                 </div>
             )}
-
         </div>
     );
 }

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:3000";
 
 const ProductData = ({
     products = [],
@@ -9,15 +12,40 @@ const ProductData = ({
     wishlist = [],
     toggleWishlist,
 }) => {
+
     const navigate = useNavigate();
+
     const [showAuthPopup, setShowAuthPopup] = useState(false);
     const [pendingId, setPendingId] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(null);
+
+    // ✅ Check auth from backend (cookie-based)
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                await axios.get(`${BASE_URL}/api/me`, {
+                    withCredentials: true
+                });
+
+                setIsLoggedIn(true);
+
+            } catch (error) {
+                setIsLoggedIn(false);
+            }
+        };
+
+        checkAuth();
+    }, []);
 
     const handleWishlist = (e, id) => {
         e.preventDefault();
         e.stopPropagation();
 
-        const isLoggedIn = !!localStorage.getItem("token");
+        // still checking loading state
+        if (isLoggedIn === null) {
+            toast.info("Checking login...");
+            return;
+        }
 
         if (!isLoggedIn) {
             setPendingId(id);
@@ -41,6 +69,7 @@ const ProductData = ({
 
     const continueAfterLogin = () => {
         setShowAuthPopup(false);
+
         if (pendingId) {
             toggleWishlist && toggleWishlist(pendingId);
             toast.success("Added to wishlist");
@@ -75,8 +104,10 @@ const ProductData = ({
     return (
         <>
             <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
                 {products.map((item) => (
                     <Link key={item._id} to={`/product/${item._id}`}>
+
                         <div className="relative bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:border-indigo-200">
 
                             <button
@@ -116,11 +147,15 @@ const ProductData = ({
                         </div>
                     </Link>
                 ))}
+
             </div>
 
+            {/* AUTH POPUP */}
             {showAuthPopup && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+
                     <div className="bg-white p-6 rounded-xl w-80 text-center shadow-xl">
+
                         <h2 className="text-lg font-semibold mb-2">
                             Login Required
                         </h2>
@@ -130,6 +165,7 @@ const ProductData = ({
                         </p>
 
                         <div className="flex gap-3 justify-center">
+
                             <button
                                 onClick={handleLogin}
                                 className="bg-indigo-600 text-white px-4 py-2 rounded"
@@ -143,6 +179,7 @@ const ProductData = ({
                             >
                                 Register
                             </button>
+
                         </div>
 
                         <button
@@ -158,7 +195,9 @@ const ProductData = ({
                         >
                             I already logged in
                         </button>
+
                     </div>
+
                 </div>
             )}
         </>
