@@ -46,7 +46,7 @@ const products = [
 const ProductGrid = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
-      
+
       {/* GRID */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {products.map((item) => (
@@ -82,7 +82,7 @@ const ProductGrid = () => {
                   ₹{item.oldPrice}
                 </span>
               )}
-
+            
               {item.discount && (
                 <span className="text-green-600 text-xs font-medium">
                   {item.discount}

@@ -5,11 +5,12 @@ const BASE_URL = "http://localhost:3000";
 
 export default function Products({
     products = [],
-    setProducts,        // ✅ IMPORTANT for delete/update UI
+    setProducts,
     setEditingId,
     setForm,
     setPreviewImage,
-    setShowModal
+    setShowModal,
+    sellerName
 }) {
 
     // ========================
@@ -33,31 +34,28 @@ export default function Products({
         setShowModal(true);
     };
 
-    // ========================
-    // DELETE PRODUCT (Optimistic UI)
-    // ========================
+
     const handleDelete = async (id) => {
 
         const previousProducts = [...products];
 
         try {
-            // 1. Optimistic UI update (instant remove)
+
             setProducts((prev) =>
                 prev.filter((item) => item._id !== id)
             );
 
-            // 2. API call
+
             await axios.delete(
                 `${BASE_URL}/api/delete-product/${id}`,
                 {
-                    withCredentials: true // ✅ cookie auth
+                    withCredentials: true
                 }
             );
 
         } catch (error) {
             console.log("Delete failed:", error);
 
-            // 3. rollback if error
             setProducts(previousProducts);
         }
     };
@@ -143,6 +141,12 @@ export default function Products({
                                         {item.category}
                                     </span>
                                 </div>
+                                <div>
+                                    <p className="text-sm text-gray-500">
+                                        {sellerName}
+                                    </p>
+                                </div>
+
 
                                 {/* BUTTONS */}
                                 <div className="flex gap-3 mt-5">

@@ -58,7 +58,7 @@ export default function ProductModal({
                 method,
                 url,
                 data: formData,
-                withCredentials: true // ✅ IMPORTANT for cookies
+                withCredentials: true
             });
 
             fetchProducts();
@@ -91,6 +91,7 @@ export default function ProductModal({
                     <h2 className="text-xl font-bold">
                         {editingId ? "Edit Product" : "Add Product"}
                     </h2>
+                    
 
                     <button onClick={() => setShowModal(false)}>
                         ✖

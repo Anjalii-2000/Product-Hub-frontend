@@ -111,6 +111,7 @@ export default function Seller() {
                             setForm={setForm}
                             setPreviewImage={setPreviewImage}
                             setShowModal={setShowModal}
+                            sellerName={sellerName}
                         />
                     )}
 
@@ -139,6 +140,7 @@ export default function Seller() {
                 editingId={editingId}
                 setEditingId={setEditingId}
                 fetchProducts={fetchProducts}
+                
             />
 
         </div>
