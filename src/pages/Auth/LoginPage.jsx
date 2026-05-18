@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Image from "../../assets/Images/Image.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,11 +10,22 @@ const API_URL = "http://localhost:3000/api";
 const LoginPage = () => {
 
   const navigate = useNavigate();
+  const emailRef = useRef(null);
 
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+      emailRef.current?.focus();
+    }, 100);
+
+    return () => clearTimeout(timer);
+
+  }, []);
 
   const isFormValid =
     formData.email.trim().length > 0 &&
@@ -77,6 +88,8 @@ const LoginPage = () => {
         "Login failed"
       );
     }
+
+
   };
 
   return (
@@ -98,7 +111,7 @@ const LoginPage = () => {
 
         <div className="w-full max-w-xl p-10 bg-white rounded-2xl shadow-xl border">
 
-          <h2 className="text-4xl font-bold text-center mb-8 text-purple-600">
+          <h2 className="text-4xl font-extrabold text-center mb-10 bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 text-transparent bg-clip-text tracking-wide">
             Welcome Back
           </h2>
 
@@ -111,6 +124,7 @@ const LoginPage = () => {
               </label>
 
               <input
+                ref={emailRef}
                 name="email"
                 value={formData.email}
                 onChange={handleChange}

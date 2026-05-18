@@ -13,10 +13,8 @@ import Seller from './pages/Dashboard/Seller';
 import Customer from './pages/Dashboard/Customer';
 import CustomerProduct from './Components/Customer/products/CustomerProduct';
 import CustomerCart from './pages/Customer/CustomerCart';
-// import Wishlist from './Components/CustomerAllComponents/Wishlist';
-// import MyOrders from './Components/CustomerAllComponents/MyOrders';
-// import Profile from './Components/CustomerAllComponents/Profile';
-// import Cart from './Components/CustomerAllComponents/Cart';
+import CustomerWishlist from './pages/Customer/CustomerWishlist';
+
 
 function App() {
   return (
@@ -33,10 +31,6 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/dashboard/customer/wishlist" element={<Wishlist />} />
-          <Route path="/dashboard/customer/myorder" element={< MyOrders />} />
-          <Route path="/dashboard/customer/cart" element={<Cart />} />
-          <Route path="/dashboard/customer/profile" element={< Profile />} /> */}
           <Route path="/dashboard/seller" element={<PrivateRoute role="seller">
             <Seller />
           </PrivateRoute>
@@ -44,6 +38,7 @@ function App() {
 
           <Route path='/dashboard/customer/product' element={<PrivateRoute role="customer"><CustomerProduct /> </PrivateRoute>} />
           <Route path='/dashboard/customer/customercart' element={<CustomerCart />} />
+          <Route path='/dashboard/customer/customerwishlist' element={<CustomerWishlist />} />
           <Route path="/dashboard/customer" element={
             <PrivateRoute role="customer">
               <Customer />

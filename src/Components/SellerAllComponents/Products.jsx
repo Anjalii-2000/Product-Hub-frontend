@@ -13,9 +13,7 @@ export default function Products({
     sellerName
 }) {
 
-    // ========================
-    // EDIT PRODUCT
-    // ========================
+   
     const handleEdit = (item) => {
 
         setForm({

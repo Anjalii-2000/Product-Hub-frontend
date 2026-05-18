@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CustomerProduct from "../../Components/Customer/products/CustomerProduct";
 import logo from "../../assets/logo.jpeg";
-import { ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,6 +16,9 @@ const Customer = () => {
   const { cartItems } = useSelector(
     (state) => state.cart
   )
+  const { wishlistItems } = useSelector(
+    (state) => state.wishlist
+  )
   const [showMenu, setShowMenu] = useState(false);
 
   const [getAllProduct, setAllProduct] = useState([]);
@@ -27,7 +30,7 @@ const Customer = () => {
   const [user, setUser] = useState(null);
 
 
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
 
   // GET USER
   useEffect(() => {
@@ -209,10 +212,21 @@ const Customer = () => {
             </button>
 
             <button
-              onClick={() => navigate("/wishlist")}
-              className="w-full text-left px-4 py-3 rounded-lg hover:bg-indigo-100"
+              onClick={() => navigate("/dashboard/customer/customerwishlist")}
+              className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-indigo-100 relative"
             >
-              ❤️ Wishlist
+
+              <div className="flex items-center gap-2">
+                <Heart size={18} className="text-red-500" />
+                <span className="text-sm font-medium">Wishlist</span>
+              </div>
+
+              {/* Right side: badge */}
+              {wishlistItems.length > 0 && (
+                <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                  {wishlistItems.length}
+                </span>
+              )}
             </button>
 
             <button
@@ -277,7 +291,57 @@ const Customer = () => {
             loading={loading}
             error={error}
           />
+          {/* PAGINATION */}
+          <div className="flex justify-center items-center mt-10 mb-6 gap-3">
 
+            {/* Previous */}
+            <button
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              disabled={currentPage === 1}
+              className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300
+      ${currentPage === 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:scale-105 shadow-md"
+                }`}
+            >
+              ← Previous
+            </button>
+
+            {/* Page Numbers */}
+            <div className="flex gap-2">
+
+              {[...Array(totalPages)].map((_, index) => (
+
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`w-10 h-10 rounded-full font-semibold transition-all duration-300
+          ${currentPage === index + 1
+                      ? "bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white scale-110 shadow-lg"
+                      : "bg-white border hover:bg-purple-100"
+                    }`}
+                >
+                  {index + 1}
+                </button>
+
+              ))}
+
+            </div>
+
+            {/* Next */}
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300
+      ${currentPage === totalPages
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:scale-105 shadow-md"
+                }`}
+            >
+              Next →
+            </button>
+
+          </div>
         </div>
 
       </div>

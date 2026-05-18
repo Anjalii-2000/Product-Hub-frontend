@@ -142,17 +142,17 @@ const CustomerProduct = ({
                                         dispatch(removeFromWishlist(item._id));
                                     } else {
                                         dispatch(addToWishlist(item));
+                                       
                                     }
                                 }}
                                 className="absolute top-3 right-3 z-10 bg-black/40 p-2 rounded-full"
                             >
                                 <Heart
                                     size={22}
-                                    className={`transition-all duration-300 ${
-                                        isWishlisted
+                                    className={`transition-all duration-300 ${isWishlisted
                                             ? "fill-red-500 text-red-500"
                                             : "text-white"
-                                    }`}
+                                        }`}
                                 />
                             </button>
 
@@ -201,7 +201,7 @@ const CustomerProduct = ({
                                                 Add To Cart
                                             </button>
                                         ) : (
-                                            <div className="w-full h-[40px] border rounded-full flex justify-center items-center gap-4 bg-white">
+                                            <div className="w-full h-[40px] text-black border rounded-full flex justify-center items-center gap-4 bg-white">
                                                 <button
                                                     onClick={(e) =>
                                                         handleDecrease(e, item._id)
@@ -211,7 +211,7 @@ const CustomerProduct = ({
                                                     -
                                                 </button>
 
-                                                <span>
+                                                <span className="text-black px-2">
                                                     {cartItem.quantity}
                                                 </span>
 
@@ -219,7 +219,7 @@ const CustomerProduct = ({
                                                     onClick={(e) =>
                                                         handleAddToCart(e, item)
                                                     }
-                                                    className="font-bold px-2"
+                                                    className="font-bold px-2 text-black"
                                                 >
                                                     +
                                                 </button>
