@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { User, Heart, Shirt, Tv, Utensils, BookOpen } from "lucide-react";
+import { User, Heart, Shirt, Tv, Utensils, BookOpen, ShoppingCart } from "lucide-react";
 import LoginModal from "../../LoginModal/LoginModal";
 import logo from "../../../assets/logo.jpeg";
-
+import { useSelector } from "react-redux";
 const categories = [
     { name: "All", icon: null },
     { name: "Electronics", icon: <Tv size={22} /> },
@@ -14,6 +14,10 @@ const categories = [
 
 export const Header = ({ setCategory }) => {
     const navigate = useNavigate();
+    const { cartItems } = useSelector(
+        (state) => state.cart
+    );
+
     const [openLoginModal, setOpenLoginModal] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -39,7 +43,7 @@ export const Header = ({ setCategory }) => {
 
                     <Link to="/" className="flex items-center flex-shrink-0">
                         <img
-                          onClick={() => window.location.reload()}
+                            onClick={() => window.location.reload()}
                             src={logo}
                             alt="logo"
                             className="w-auto h-16 transition-transform duration-300 "
@@ -98,6 +102,14 @@ export const Header = ({ setCategory }) => {
                             >
                                 <Heart size={18} />
                                 <span className="text-sm">Wishlist</span>
+                            </button>
+                            <button
+                                onClick={() =>
+                                    setOpenLoginModal(true)}
+                                className="relative flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-400 hover:bg-indigo-100 transition"
+                            >
+                                <ShoppingCart size={18} />
+                                <span className="text-sm">Cart</span>
                             </button>
 
                             <button
