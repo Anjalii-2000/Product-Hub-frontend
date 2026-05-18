@@ -2,135 +2,87 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Heart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { addToCart, decreaseQuantity } from "../../../features/cart/cartSlice";
+import {
+    addToWishlist,
+    removeFromWishlist
+} from "../../../features/wishlist/wishlistSlice";
 
 const BASE_URL = "http://localhost:3000";
 
 const CustomerProduct = ({
     products = [],
     loading,
-    error,
-    wishlist = [],
-    toggleWishlist
+    error
 }) => {
 
     const navigate = useNavigate();
-    
     const dispatch = useDispatch();
 
-    const { cartItems } = useSelector(
-        (state) => state.cart
-    );
+    const { cartItems } = useSelector((state) => state.cart);
+    const { wishlistItems } = useSelector((state) => state.wishlist);
 
     const [isLoggedIn, setIsLoggedIn] = useState(null);
 
     useEffect(() => {
-
         const checkAuth = async () => {
-
             try {
-
-                await axios.get(
-                    `${BASE_URL}/api/me`,
-                    {
-                        withCredentials: true
-                    }
-                );
-
+                await axios.get(`${BASE_URL}/api/me`, {
+                    withCredentials: true
+                });
                 setIsLoggedIn(true);
-
             } catch {
-
                 setIsLoggedIn(false);
-
             }
-
         };
 
         checkAuth();
-
     }, []);
 
     const handleAddToCart = (e, product) => {
-
         e.preventDefault();
         e.stopPropagation();
 
         if (isLoggedIn === null) {
-
             toast.info("Checking login...");
             return;
-
         }
 
         if (!isLoggedIn) {
-
-            toast.warning(
-                "Please login first"
-            );
-
+            toast.warning("Please login first");
             navigate("/login");
             return;
-
         }
 
-        dispatch(
-            addToCart(product)
-        );
-
+        dispatch(addToCart(product));
     };
 
-    const handleDecrease = (
-        e,
-        productId
-    ) => {
-
+    const handleDecrease = (e, productId) => {
         e.preventDefault();
         e.stopPropagation();
-
-        dispatch(
-            decreaseQuantity(productId)
-        );
-
+        dispatch(decreaseQuantity(productId));
     };
 
-    const handleBuyNow = (
-        e,
-        product
-    ) => {
-
+    const handleBuyNow = (e, product) => {
         e.preventDefault();
         e.stopPropagation();
 
         if (isLoggedIn === null) {
-
-            toast.info(
-                "Checking login..."
-            );
-
+            toast.info("Checking login...");
             return;
-
         }
 
         if (!isLoggedIn) {
-
-            toast.warning(
-                "Please login first"
-            );
-
+            toast.warning("Please login first");
             navigate("/login");
-
             return;
-
         }
 
-        dispatch(
-            addToCart(product)
-        );
-
+        dispatch(addToCart(product));
         navigate("/checkout");
-
     };
 
     if (loading)
@@ -155,20 +107,21 @@ const CustomerProduct = ({
         );
 
     return (
-
         <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 
             {products.map((item) => {
 
-                const cartItem =
-                    cartItems.find(
-                        product =>
-                            String(product._id) ===
-                            String(item._id)
-                    );
+                const cartItem = cartItems.find(
+                    product =>
+                        String(product._id) === String(item._id)
+                );
+
+                const isWishlisted = wishlistItems.some(
+                    product =>
+                        String(product._id) === String(item._id)
+                );
 
                 return (
-
                     <div
                         key={item._id}
                         className="flex flex-col h-full"
@@ -176,71 +129,69 @@ const CustomerProduct = ({
 
                         <Link
                             to={`/product/${item._id}`}
-                            className="flex-1 flex flex-col bg-white rounded-3xl shadow-sm hover:shadow-xl transition overflow-hidden border"
+                            className="relative flex-1 flex flex-col bg-gray-700 rounded-3xl shadow-sm hover:shadow-xl transition overflow-hidden border"
                         >
 
+                            {/*  Wishlist Button */}
                             <button
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    toggleWishlist(
-                                        item._id
-                                    );
+                                    e.stopPropagation();
+
+                                    if (isWishlisted) {
+                                        dispatch(removeFromWishlist(item._id));
+                                    } else {
+                                        dispatch(addToWishlist(item));
+                                    }
                                 }}
-                                className="absolute top-3 right-3 text-2xl z-10"
+                                className="absolute top-3 right-3 z-10 bg-black/40 p-2 rounded-full"
                             >
-                                {wishlist.includes(
-                                    item._id
-                                )
-                                    ? "❤️"
-                                    : "🤍"}
+                                <Heart
+                                    size={22}
+                                    className={`transition-all duration-300 ${
+                                        isWishlisted
+                                            ? "fill-red-500 text-red-500"
+                                            : "text-white"
+                                    }`}
+                                />
                             </button>
 
+                            {/* Product Image */}
                             <div className="bg-gray-100 p-3 flex justify-center items-center h-40">
-
                                 <img
                                     src={item.image}
                                     alt={item.productName}
                                     className="h-full object-contain"
                                 />
-
                             </div>
 
-                            <div className="p-4 flex-1">
+                            {/* Product Info */}
+                            <div className="p-4 flex-1 text-white">
 
                                 <h2 className="font-semibold">
-
                                     {item.productName}
-
                                 </h2>
 
-                                <p className="text-sm text-gray-500">
-
+                                <p className="text-sm text-gray-300">
                                     {item.description}
-
                                 </p>
 
                                 <div className="flex justify-between mt-3">
-
-                                    <span className="font-bold text-indigo-600">
-
+                                    <span className="font-bold text-indigo-300">
                                         ₹{item.price}
-
                                     </span>
 
-                                    <span className="text-xs bg-indigo-100 px-2 py-1 rounded">
-
+                                    <span className="text-xs bg-indigo-600 px-2 py-1 rounded text-white">
                                         {item.category}
-
                                     </span>
-
                                 </div>
 
+                                {/* Actions */}
                                 <div className="mt-4 flex gap-2">
 
                                     <div className="flex-1">
 
                                         {!cartItem ? (
-
                                             <button
                                                 onClick={(e) =>
                                                     handleAddToCart(e, item)
@@ -249,17 +200,11 @@ const CustomerProduct = ({
                                             >
                                                 Add To Cart
                                             </button>
-
                                         ) : (
-
-                                            <div className="w-full h-[40px] border rounded-full flex justify-center items-center gap-4">
-
+                                            <div className="w-full h-[40px] border rounded-full flex justify-center items-center gap-4 bg-white">
                                                 <button
                                                     onClick={(e) =>
-                                                        handleDecrease(
-                                                            e,
-                                                            item._id
-                                                        )
+                                                        handleDecrease(e, item._id)
                                                     }
                                                     className="font-bold px-2"
                                                 >
@@ -272,28 +217,20 @@ const CustomerProduct = ({
 
                                                 <button
                                                     onClick={(e) =>
-                                                        handleAddToCart(
-                                                            e,
-                                                            item
-                                                        )
+                                                        handleAddToCart(e, item)
                                                     }
                                                     className="font-bold px-2"
                                                 >
                                                     +
                                                 </button>
-
                                             </div>
-
                                         )}
 
                                     </div>
 
                                     <button
                                         onClick={(e) =>
-                                            handleBuyNow(
-                                                e,
-                                                item
-                                            )
+                                            handleBuyNow(e, item)
                                         }
                                         className="flex-1 bg-blue-500 text-white py-2 rounded-full text-sm"
                                     >
@@ -307,11 +244,8 @@ const CustomerProduct = ({
                         </Link>
 
                     </div>
-
                 );
-
             })}
-
         </div>
     );
 };
