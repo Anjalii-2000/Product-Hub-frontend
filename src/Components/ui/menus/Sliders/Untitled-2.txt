@@ -1,5 +1,0 @@
-AXIOS iNSTANCE/INTERCEPTORS
-
-
-
-/login
