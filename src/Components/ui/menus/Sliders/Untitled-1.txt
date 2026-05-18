@@ -1,0 +1,22 @@
+Auth:
+Login, Signup, forget password
+
+
+Access Token: User details (1hr): 401
+Refresh Token: regenerate access token 7 Dys 30 days
+
+
+-----------------------------------------------------------------------
+
+User role
+
+
+
+
+middleware
+Email SMTP
+Twilio => 
+---------------------------------------------------------------
+
+
+NEXT JS
