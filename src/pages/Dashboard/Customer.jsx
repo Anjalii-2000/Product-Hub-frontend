@@ -11,7 +11,9 @@ import CategoryNav from "../../Components/Customer/CategoryNav/CategoryNav";
 const BASE_URL = "http://localhost:3000";
 
 const Customer = () => {
+  
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
   const { wishlistItems } = useSelector((state) => state.wishlist);
@@ -26,6 +28,15 @@ const Customer = () => {
   const [user, setUser] = useState(null);
 
   const itemsPerPage = 10;
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchTerm]);
+
+
 
   // GET USER
   useEffect(() => {
@@ -48,28 +59,39 @@ const Customer = () => {
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
 
-  const filteredProducts = getAllProduct.filter(
-    (product) =>
-      product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
-  const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const currentProducts = getAllProduct.slice(indexOfFirst, indexOfLast);
 
-  const fetchProducts = async (cat = "") => {
+  const totalPages = Math.ceil(getAllProduct.length / itemsPerPage);
+
+  const fetchProducts = async (cat = "", search = "") => {
     try {
       setLoading(true);
       setError(false);
 
-      const url = cat
-        ? `${BASE_URL}/api/getallproduct?category=${cat}`
+      const params = new URLSearchParams();
+
+      if (cat) {
+        params.append("category", cat);
+      }
+
+      if (search) {
+        params.append("searchTerm", search);
+      }
+
+      const queryString = params.toString();
+      const url = queryString
+        ? `${BASE_URL}/api/getallproduct?${queryString}`
         : `${BASE_URL}/api/getallproduct`;
 
+      console.log("URL:", url);
+
       const res = await axios.get(url);
-      setAllProduct(res?.data?.data || []);
+
+      setAllProduct(res.data.data || []);
     } catch (err) {
+      console.log(err);
       setError(true);
     } finally {
       setLoading(false);
@@ -78,7 +100,7 @@ const Customer = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-    fetchProducts(category);
+    fetchProducts(category, debouncedSearch);
   }, [category, searchTerm]);
 
   const handleLogout = async () => {
@@ -156,11 +178,10 @@ const Customer = () => {
             <button
               onClick={() => setCurrentPage((prev) => prev - 1)}
               disabled={currentPage === 1}
-              className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300 ${
-                currentPage === 1
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:scale-105 shadow-md"
-              }`}
+              className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300 ${currentPage === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:scale-105 shadow-md"
+                }`}
             >
               ← Previous
             </button>
@@ -171,11 +192,10 @@ const Customer = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentPage(index + 1)}
-                  className={`w-10 h-10 rounded-full font-semibold transition-all duration-300 ${
-                    currentPage === index + 1
-                      ? "bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white scale-110 shadow-lg"
-                      : "bg-white border hover:bg-purple-100"
-                  }`}
+                  className={`w-10 h-10 rounded-full font-semibold transition-all duration-300 ${currentPage === index + 1
+                    ? "bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white scale-110 shadow-lg"
+                    : "bg-white border hover:bg-purple-100"
+                    }`}
                 >
                   {index + 1}
                 </button>
@@ -186,11 +206,10 @@ const Customer = () => {
             <button
               onClick={() => setCurrentPage((prev) => prev + 1)}
               disabled={currentPage === totalPages}
-              className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300 ${
-                currentPage === totalPages
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:scale-105 shadow-md"
-              }`}
+              className={`px-5 py-2 rounded-xl font-semibold transition-all duration-300 ${currentPage === totalPages
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:scale-105 shadow-md"
+                }`}
             >
               Next →
             </button>
