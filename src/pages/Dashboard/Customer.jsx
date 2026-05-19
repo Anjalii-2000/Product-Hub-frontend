@@ -7,6 +7,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Footer from "../../Components/ui/menus/Footer";
+import CategoryNav from "../../Components/Customer/CategoryNav/CategoryNav";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -127,6 +128,11 @@ const Customer = () => {
           alt=""
         />
 
+
+        <div>
+          <CategoryNav setCategory={setCategory} />
+        </div>
+        
         <div className="relative">
 
           <div
@@ -243,49 +249,6 @@ const Customer = () => {
 
         {/* RIGHT CONTENT */}
         <div className="flex-1 p-6">
-
-
-          {/* <div className="flex flex-wrap gap-4 mb-8">
-
-            <button
-              onClick={() => setCategory("")}
-              className="px-4 py-2 bg-white rounded-lg shadow"
-            >
-              All
-            </button>
-
-            <button
-              onClick={() => setCategory("Electronics")}
-              className="px-4 py-2 bg-white rounded-lg shadow"
-            >
-              Electronics
-            </button>
-
-            <button
-              onClick={() => setCategory("Clothing")}
-              className="px-4 py-2 bg-white rounded-lg shadow"
-            >
-              Clothing
-            </button>
-
-            <button
-              onClick={() => setCategory("Food")}
-              className="px-4 py-2 bg-white rounded-lg shadow"
-            >
-              Food
-            </button>
-
-            <button
-              onClick={() => setCategory("Books")}
-              className="px-4 py-2 bg-white rounded-lg shadow"
-            >
-              Books
-            </button>
-
-          </div> */}
-
-
-
           <CustomerProduct
             products={currentProducts}
             loading={loading}

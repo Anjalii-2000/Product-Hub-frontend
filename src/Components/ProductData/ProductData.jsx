@@ -9,6 +9,13 @@ import "swiper/css/navigation";
 
 const BASE_URL = "http://localhost:3000";
 
+const categoryColors = {
+    electronics: "bg-blue-200",
+    clothing: "bg-pink-700",
+    food: "bg-yellow-600",
+    books: "bg-green-500"
+};
+
 const ProductData = ({
     products = [],
     loading,
@@ -39,15 +46,14 @@ const ProductData = ({
         );
     }
 
+    // Group products
 
-    // Group products by category
     const groupedProducts = products.reduce(
         (acc, product) => {
 
-            const category =
-                product.category
-                    ?.trim()
-                    ?.toLowerCase();
+            const category = product.category
+                ?.trim()
+                ?.toLowerCase();
 
             if (!acc[category]) {
                 acc[category] = [];
@@ -61,45 +67,63 @@ const ProductData = ({
         {}
     );
 
+    console.log("All Products:", products);
+    console.log("Grouped Products:", groupedProducts);
+    console.log(
+        "Available Categories:",
+        Object.keys(groupedProducts)
+    );
+
+    const categoryOrder = [
+        "electronics",
+        "clothing",
+        "food",
+        "books"
+    ];
 
     return (
 
-        <div className="space-y-10">
+        <div className="space-y-12">
 
-            {Object.entries(groupedProducts)
-                .map(([category, items]) => (
+            {categoryOrder.map((category) => {
+
+                const items =
+                    groupedProducts[category] ||
+                    groupedProducts[category + "s"];
+
+
+
+                if (!items?.length)
+                    return null;
+
+                return (
 
                     <div
                         key={category}
-                        className="bg-slate-200 rounded-3xl p-5"
+                        className={`${categoryColors[category]} rounded-3xl p-6`}
                     >
 
-                        {/* Header */}
+                        <div className="flex justify-between items-center mb-8">
 
-                        <div className="flex justify-between items-center mb-6">
-
-                            <h2 className="text-3xl font-bold capitalize">
+                            <h2 className="text-3xl font-bold capitalize text-black">
 
                                 {category}
 
                             </h2>
 
-                            <button
-                                className="bg-black text-white rounded-full w-10 h-10 text-xl"
-                            >
+                            <button className="bg-black text-white rounded-full w-10 h-10">
+
                                 →
+
                             </button>
 
                         </div>
 
-
                         <Swiper
-                            key={`${category}-${items.length}`}
                             modules={[Navigation]}
                             navigation
                             spaceBetween={20}
                             slidesPerView={4}
-
                             breakpoints={{
 
                                 320: {
@@ -131,11 +155,9 @@ const ProductData = ({
                                         to={`/product/${item._id}`}
                                     >
 
-                                        <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 h-full">
+                                        <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition h-full">
 
-                                            {/* Image */}
-
-                                            <div className="bg-gray-100 h-[220px] flex justify-center items-center">
+                                            <div className="bg-gray-100 h-[180px] flex justify-center items-center">
 
                                                 <img
                                                     src={
@@ -144,23 +166,20 @@ const ProductData = ({
                                                             : "/placeholder.png"
                                                     }
                                                     alt={item.productName}
-                                                    className="h-[180px] object-contain"
+                                                    className="h-[150px] object-contain"
                                                 />
 
                                             </div>
 
-
-                                            {/* Content */}
-
                                             <div className="p-4">
 
-                                                <h3 className="font-semibold text-lg truncate">
+                                                <h3 className="font-semibold text-lg text-black truncate">
 
                                                     {item.productName}
 
                                                 </h3>
 
-                                                <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+                                                <p className="text-sm text-black mt-2 line-clamp-2">
 
                                                     {item.description}
 
@@ -168,7 +187,7 @@ const ProductData = ({
 
                                                 <div className="mt-3">
 
-                                                    <span className="text-xl font-bold text-indigo-600">
+                                                    <span className="text-xl font-bold text-black">
 
                                                         ₹{item.price}
 
@@ -190,11 +209,14 @@ const ProductData = ({
 
                     </div>
 
-                ))}
+                );
+
+            })}
 
         </div>
 
     );
+
 };
 
 export default ProductData;

@@ -35,7 +35,9 @@ export default function Topbar({ sellerName }) {
                 className="h-11 w-20 cursor-pointer"
                 onClick={() => window.location.reload()}
             />
+            <div>
 
+            </div>
             {/* RIGHT SIDE */}
             <div className="relative">
 

@@ -62,7 +62,7 @@ const Home = () => {
             <Header setCategory={setCategory} />
             <Slider />
 
-            <div className="font-serif pt-[30px] bg-gray-50 min-h-screen px-6 md:px-12">
+            <div className="font-serif pt-[30px] pb-[80px] bg-gray-50 min-h-screen px-6 md:px-12">
 
 
                 <ProductData
@@ -74,7 +74,10 @@ const Home = () => {
                 />
 
             </div>
-            <Footer />
+            <div className="mt-16" >
+                <Footer />
+            </div>
+
         </>
     );
 };
