@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import axios from "axios";
+import CustomerHeader from "../../Components/Customer/CustomerHeader/CustomerHeader";
 import { addToWishlist, removeFromWishlist } from "../../features/wishlist/wishlistSlice";
 import { addToCart, decreaseQuantity } from "../../features/cart/cartSlice";
 import CustomerSideBar from "../../Components/Customer/CustomerSideBar/CustomerSideBar";
@@ -61,6 +62,10 @@ function CustomerWishlist() {
 
   return (
     <div className="min-h-screen flex bg-gray-100">
+      <CustomerHeader
+        customerName={customerName}
+        handleLogout={handleLogout}
+      />
       {/* Sidebar */}
       <CustomerSideBar customerName={customerName} handleLogout={handleLogout} />
 

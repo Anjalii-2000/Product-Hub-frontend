@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute";
 import Seller from './pages/Dashboard/Seller';
 import Customer from './pages/Dashboard/Customer';
+import CustomerHome from './Components/Customer/CustomerHome/CustomerHome';
 import CustomerProduct from './Components/Customer/products/CustomerProduct';
 import CustomerCart from './pages/Customer/CustomerCart';
 import CustomerWishlist from './pages/Customer/CustomerWishlist';
@@ -37,13 +38,15 @@ function App() {
           } />
 
           <Route path='/dashboard/customer/product' element={<PrivateRoute role="customer"><CustomerProduct /> </PrivateRoute>} />
-          <Route path='/dashboard/customer/customercart' element={<CustomerCart />} />
-          <Route path='/dashboard/customer/customerwishlist' element={<CustomerWishlist />} />
           <Route path="/dashboard/customer" element={
             <PrivateRoute role="customer">
               <Customer />
             </PrivateRoute>
-          } />
+          } >
+            <Route index element={<CustomerHome />} />
+            <Route path='/dashboard/customer/customercart' element={<CustomerCart />} />
+            <Route path='/dashboard/customer/customerwishlist' element={<CustomerWishlist />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
