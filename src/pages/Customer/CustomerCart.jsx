@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import CustomerSideBar from "../../Components/Customer/CustomerSideBar/CustomerSideBar";
 import CustomerHeader from "../../Components/Customer/CustomerHeader/CustomerHeader";
 import {
   increaseQuantity,
@@ -90,11 +89,7 @@ function CustomerCart() {
             {/* Main section */}
             <div className="pt-20 flex">
 
-                {/* Sidebar */}
-                <CustomerSideBar
-                    customerName={customerName}
-                    handleLogout={handleLogout}
-                />
+               
 
                 {/* Cart Content */}
                 <div className="flex-1 p-6 max-w-6xl mx-auto">

@@ -6,7 +6,6 @@ import axios from "axios";
 import CustomerHeader from "../../Components/Customer/CustomerHeader/CustomerHeader";
 import { addToWishlist, removeFromWishlist } from "../../features/wishlist/wishlistSlice";
 import { addToCart, decreaseQuantity } from "../../features/cart/cartSlice";
-import CustomerSideBar from "../../Components/Customer/CustomerSideBar/CustomerSideBar";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -67,7 +66,7 @@ function CustomerWishlist() {
         handleLogout={handleLogout}
       />
       {/* Sidebar */}
-      <CustomerSideBar customerName={customerName} handleLogout={handleLogout} />
+     
 
       {/* Main Wishlist Content */}
       <div className="flex-1 p-6">

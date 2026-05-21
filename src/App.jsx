@@ -15,7 +15,9 @@ import CustomerHome from './Components/Customer/CustomerHome/CustomerHome';
 import CustomerProduct from './Components/Customer/products/CustomerProduct';
 import CustomerCart from './pages/Customer/CustomerCart';
 import CustomerWishlist from './pages/Customer/CustomerWishlist';
-import Checkout from './pages/Checkout';
+import CheckoutForm from './Payment/CheckoutForm';
+import StripeProvider from './Payment/StripeProvider';
+
 
 
 function App() {
@@ -48,7 +50,8 @@ function App() {
             <Route path='/dashboard/customer/customercart' element={<CustomerCart />} />
             <Route path='/dashboard/customer/customerwishlist' element={<CustomerWishlist />} />
           </Route>
-          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/dashboard/customer/checkout' element={<StripeProvider><CheckoutForm /></StripeProvider>} />
+
         </Routes>
       </BrowserRouter>
     </>

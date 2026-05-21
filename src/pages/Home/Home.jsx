@@ -4,6 +4,7 @@ import { Header } from "../../Components/ui/menus/Header";
 import Slider from "../../Components/ui/menus/Slider";
 import ProductData from "../../Components/ProductData/ProductData";
 import Footer from "../../Components/ui/menus/Footer";
+import StripeProvider from "../../Payment/StripeProvider";
 
 
 const Home = () => {
@@ -61,6 +62,9 @@ const Home = () => {
         <>
             <Header setCategory={setCategory} />
             <Slider />
+        
+
+
 
             <div className="font-serif pt-[30px] pb-[80px] bg-gray-50 min-h-screen px-6 md:px-12">
 

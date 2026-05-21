@@ -4,12 +4,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Heart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { loadStripe } from "@stripe/stripe-js";
 import { addToCart, decreaseQuantity } from "../../../features/cart/cartSlice";
-import {
-    addToWishlist,
-    removeFromWishlist
-} from "../../../features/wishlist/wishlistSlice";
+import { addToWishlist, removeFromWishlist } from "../../../features/wishlist/wishlistSlice";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -65,24 +62,47 @@ const CustomerProduct = ({
         e.stopPropagation();
         dispatch(decreaseQuantity(productId));
     };
-
-    const handleBuyNow = (e, product) => {
+    const stripePromise = loadStripe(
+        import.meta.env.VITE_STRIPE_PUBLIC_KEY
+    );
+    const handleBuyNow = async (e, product) => {
         e.preventDefault();
         e.stopPropagation();
 
-        if (isLoggedIn === null) {
-            toast.info("Checking login...");
-            return;
-        }
+        if (isLoggedIn === null) return;
 
         if (!isLoggedIn) {
             toast.warning("Please login first");
             navigate("/login");
             return;
         }
+        navigate("/dashboard/customer/checkout", {
+            state: {
+                product
+            }
+        });
+        try {
 
-        dispatch(addToCart(product));
-        navigate("/checkout");
+            const stripe = await stripePromise;
+
+            const { data } = await axios.post(
+                "http://localhost:3000/api/payment/create-checkout-session",
+                {
+                    productName: product.productName,
+                    price: product.price,
+                    quantity: 1,
+                    image: product.image
+                }
+            );
+
+            await stripe.redirectToCheckout({
+                sessionId: data.id
+            });
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Payment failed");
+        }
     };
 
     if (loading)
@@ -142,7 +162,7 @@ const CustomerProduct = ({
                                         dispatch(removeFromWishlist(item._id));
                                     } else {
                                         dispatch(addToWishlist(item));
-                                       
+
                                     }
                                 }}
                                 className="absolute top-3 right-3 z-10 bg-black/40 p-2 rounded-full"
@@ -150,8 +170,8 @@ const CustomerProduct = ({
                                 <Heart
                                     size={22}
                                     className={`transition-all duration-300 ${isWishlisted
-                                            ? "fill-red-500 text-red-500"
-                                            : "text-white"
+                                        ? "fill-red-500 text-red-500"
+                                        : "text-white"
                                         }`}
                                 />
                             </button>
