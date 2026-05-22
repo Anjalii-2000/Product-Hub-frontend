@@ -106,6 +106,7 @@ export default function Seller() {
                     {view === "products" && (
                         <Products
                             products={products}
+                            setProducts={setProducts}
                             fetchProducts={fetchProducts}
                             setEditingId={setEditingId}
                             setForm={setForm}

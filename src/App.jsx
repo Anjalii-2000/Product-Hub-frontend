@@ -17,6 +17,7 @@ import CustomerCart from './pages/Customer/CustomerCart';
 import CustomerWishlist from './pages/Customer/CustomerWishlist';
 import CheckoutForm from './Payment/CheckoutForm';
 import StripeProvider from './Payment/StripeProvider';
+import CustomerEditProfile from './Components/Customer/CustomerEditProfile/CustomerEditProfile';
 
 
 
@@ -51,7 +52,7 @@ function App() {
             <Route path='/dashboard/customer/customerwishlist' element={<CustomerWishlist />} />
           </Route>
           <Route path='/dashboard/customer/checkout' element={<StripeProvider><CheckoutForm /></StripeProvider>} />
-
+          <Route path='/dashboard/customer/editprofile' element={<CustomerEditProfile />} />
         </Routes>
       </BrowserRouter>
     </>

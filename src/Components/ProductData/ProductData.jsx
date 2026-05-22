@@ -154,7 +154,7 @@ const ProductData = ({
                                     <Link
                                         to={`/product/${item._id}`}
                                     >
-
+                                        {console.log("item image", item._id)}
                                         <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition h-full">
 
                                             <div className="bg-gray-100 h-[180px] flex justify-center items-center">
@@ -168,6 +168,7 @@ const ProductData = ({
                                                     alt={item.productName}
                                                     className="h-[150px] object-contain"
                                                 />
+                                                {console.log("item imageee:", item.image)}
 
                                             </div>
 

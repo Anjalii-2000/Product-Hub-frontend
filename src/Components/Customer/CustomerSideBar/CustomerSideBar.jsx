@@ -38,7 +38,7 @@ const CustomerSideBar = ({ customerName, handleLogout }) => {
                 </button>
 
                 <button
-                    onClick={() => navigate("/dashboard/customer/profile")}
+                    onClick={() => navigate("/dashboard/customer/editprofile")}
                     className="w-full text-left px-4 py-3 rounded-lg hover:bg-indigo-100"
                 >
                     ✏️ Edit Profile

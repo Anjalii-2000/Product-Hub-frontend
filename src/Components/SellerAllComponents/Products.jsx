@@ -53,7 +53,6 @@ export default function Products({
 
         } catch (error) {
             console.log("Delete failed:", error);
-
             setProducts(previousProducts);
         }
     };
@@ -97,7 +96,7 @@ export default function Products({
                 /* PRODUCT GRID */
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-                    {products.map((item) => (
+                    {[...products].reverse().map((item) => (
                         <div
                             key={item._id}
                             className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100"

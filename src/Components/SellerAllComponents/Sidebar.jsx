@@ -67,27 +67,7 @@ export default function Sidebar({
                 >
                     Products
                 </li>
-
-                {/* ADD PRODUCT */}
-                <li
-                    onClick={() => setShowModal(true)}
-                    className="cursor-pointer px-4 py-2 rounded-lg font-medium text-black hover:bg-gray-100"
-                >
-                    Add Product
-                </li>
-
-                {/* SETTINGS */}
-                <li
-                    onClick={() => setView("settings")}
-                    className={`cursor-pointer px-4 py-2 rounded-lg font-medium
-                    ${view === "settings"
-                        ? "bg-[#6b61e2] text-white"
-                        : "text-black hover:bg-gray-100"
-                    }`}
-                >
-                    Settings
-                </li>
-
+              
                 {/* LOGOUT */}
                 <li
                     onClick={handleLogout}
