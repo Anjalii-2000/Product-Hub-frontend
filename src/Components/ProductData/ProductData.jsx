@@ -159,7 +159,7 @@ const ProductData = ({
 
                                             <div className="bg-gray-100 h-[180px] flex justify-center items-center">
 
-                                                <img
+                                                {/* <img
                                                     src={
                                                         item.image
                                                             ? `${BASE_URL}${item.image}`
@@ -167,6 +167,11 @@ const ProductData = ({
                                                     }
                                                     alt={item.productName}
                                                     className="h-[150px] object-contain"
+                                                /> */}
+                                                <img
+                                                    src={item.image}
+                                                    alt={item.productName}
+                                                    className="h-full object-contain"
                                                 />
                                                 {console.log("item imageee:", item.image)}
 

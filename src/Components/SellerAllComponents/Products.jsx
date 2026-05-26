@@ -13,7 +13,7 @@ export default function Products({
     sellerName
 }) {
 
-   
+
     const handleEdit = (item) => {
 
         setForm({
@@ -24,9 +24,7 @@ export default function Products({
             image: null // user can re-upload image
         });
 
-        setPreviewImage(
-            item.image ? `${BASE_URL}${item.image}` : ""
-        );
+        setPreviewImage(item.image || "");
 
         setEditingId(item._id);
         setShowModal(true);
@@ -106,7 +104,7 @@ export default function Products({
                             <div className="overflow-hidden">
                                 {item.image && (
                                     <img
-                                        src={`${BASE_URL}${item.image}`}
+                                        src={item.image}
                                         alt={item.productName}
                                         className="h-52 w-full object-cover hover:scale-105 transition duration-500"
                                     />

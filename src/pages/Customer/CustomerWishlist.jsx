@@ -66,7 +66,7 @@ function CustomerWishlist() {
         handleLogout={handleLogout}
       />
       {/* Sidebar */}
-     
+
 
       {/* Main Wishlist Content */}
       <div className="flex-1 p-6">
@@ -83,26 +83,29 @@ function CustomerWishlist() {
                 (product) => String(product._id) === String(item._id)
               );
 
+              const isWishlisted = true; // (kept logic assumption same as yours if already defined)
+
               return (
                 <div key={item._id} className="flex flex-col h-full">
                   <Link
                     to={`/product/${item._id}`}
-                    className="relative flex-1 flex flex-col bg-gray-700 rounded-3xl shadow-sm hover:shadow-xl transition overflow-hidden border"
+                    className="relative flex-1 flex flex-col bg-white rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200 overflow-hidden"
                   >
-                    {/* Heart button to remove from wishlist */}
+
+                    {/* Wishlist Button */}
                     <button
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleRemoveFromWishlist(item._id);
                       }}
-                      className="absolute top-3 right-3 z-10 bg-black/40 p-2 rounded-full"
+                      className="absolute top-3 right-3 z-10 bg-white border border-gray-200 p-2 rounded-full shadow-sm"
                     >
-                      <Heart size={22} className="fill-red-500 text-red-500" />
+                      <Heart size={20} className="fill-red-500 text-red-500" />
                     </button>
 
                     {/* Product Image */}
-                    <div className="bg-gray-100 p-3 flex justify-center items-center h-40">
+                    <div className="bg-gray-50 p-5 flex justify-center items-center h-52">
                       <img
                         src={item.image}
                         alt={item.productName}
@@ -111,41 +114,53 @@ function CustomerWishlist() {
                     </div>
 
                     {/* Product Info */}
-                    <div className="p-4 flex-1 text-white">
-                      <h2 className="font-semibold">{item.productName}</h2>
-                      <p className="text-sm text-gray-300">{item.description}</p>
+                    <div className="p-4 flex-1 flex flex-col">
 
-                      <div className="flex justify-between mt-3">
-                        <span className="font-bold text-indigo-300">₹{item.price}</span>
-                        <span className="text-xs bg-indigo-600 px-2 py-1 rounded text-white">
+                      <h2 className="font-medium text-gray-900 text-sm line-clamp-2">
+                        {item.productName}
+                      </h2>
+
+                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                        {item.description}
+                      </p>
+
+                      <div className="flex items-center justify-between mt-4">
+                        <span className="font-semibold text-lg text-gray-900">
+                          ₹{item.price}
+                        </span>
+
+                        <span className="text-xs border border-gray-300 px-2 py-1 rounded-full text-gray-600">
                           {item.category}
                         </span>
                       </div>
 
-                      {/* Cart Actions */}
-                      <div className="mt-4 flex gap-2">
+                      {/* Actions */}
+                      <div className="mt-5 flex gap-2">
+
                         <div className="flex-1">
                           {!cartItem ? (
                             <button
                               onClick={() => handleAddToCart(item)}
-                              className="w-full bg-black text-white py-2 rounded-full text-sm"
+                              className="w-full bg-black text-white py-2.5 rounded-full text-sm font-medium hover:bg-gray-900 transition"
                             >
-                              Add To Cart
+                              Add to Cart
                             </button>
                           ) : (
-                            <div className="w-full h-[40px] text-black border rounded-full flex justify-center items-center gap-4 bg-white">
+                            <div className="w-full h-[42px] border border-gray-300 rounded-full flex justify-center items-center gap-4 bg-white">
                               <button
                                 onClick={() => handleDecrease(item._id)}
-                                className="font-bold px-2"
+                                className="font-semibold px-2 text-gray-700"
                               >
                                 -
                               </button>
 
-                              <span className="text-black px-2">{cartItem.quantity}</span>
+                              <span className="text-gray-900 text-sm">
+                                {cartItem.quantity}
+                              </span>
 
                               <button
                                 onClick={() => handleAddToCart(item)}
-                                className="font-bold px-2 text-black"
+                                className="font-semibold px-2 text-gray-700"
                               >
                                 +
                               </button>
@@ -155,12 +170,15 @@ function CustomerWishlist() {
 
                         <button
                           onClick={() => handleBuyNow(item)}
-                          className="flex-1 bg-blue-500 text-white py-2 rounded-full text-sm"
+                          className="flex-1 border border-black text-black py-2.5 rounded-full text-sm font-medium hover:bg-black hover:text-white transition"
                         >
                           Buy Now
                         </button>
+
                       </div>
+
                     </div>
+
                   </Link>
                 </div>
               );

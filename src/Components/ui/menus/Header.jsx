@@ -31,48 +31,44 @@ export const Header = ({ setCategory }) => {
 
     return (
         <>
-            <header className="w-full font-serif font-bold fixed top-0 left-0 z-50 bg-white text-black shadow-md">
-                <div className="w-full flex items-center justify-between px-6 md:px-12 py-4">
+            <header className="w-full font-serif font-bold fixed top-0 left-0 z-50 bg-white text-black shadow-sm border-b">
+                <div className="w-full flex items-center justify-between px-4 md:px-10 py-3">
 
                     <Link to="/" className="flex items-center flex-shrink-0">
                         <img
                             onClick={() => window.location.reload()}
                             src={logo}
                             alt="logo"
-                            className="w-auto h-16 transition-transform duration-300 "
+                            className="h-14 w-auto object-contain"
                         />
                     </Link>
-                    
 
-                    <div className="flex items-center gap-4 md:gap-6">
+                    <div className="flex items-center gap-3 md:gap-5">
 
-                        <div className="flex items-center gap-4 md:gap-6">
+                        <button
+                            onClick={() => setOpenLoginModal(true)}
+                            className="flex items-center gap-2 px-3 py-2 text-sm border border-gray-200 rounded-md hover:bg-gray-50 transition"
+                        >
+                            <Heart size={18} />
+                            <span>Wishlist</span>
+                        </button>
 
-                            <button
-                                onClick={() => setOpenLoginModal(true)}
-                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-yellow-400 text-yellow-500 hover:bg-yellow-400 hover:text-black transition"
-                            >
-                                <Heart size={18} />
-                                <span className="text-sm">Wishlist</span>
-                            </button>
-                            <button
-                                onClick={() =>
-                                    setOpenLoginModal(true)}
-                                className="relative flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-400 hover:bg-indigo-100 transition"
-                            >
-                                <ShoppingCart size={18} />
-                                <span className="text-sm">Cart</span>
-                            </button>
+                        <button
+                            onClick={() => setOpenLoginModal(true)}
+                            className="flex items-center gap-2 px-3 py-2 text-sm border border-gray-200 rounded-md hover:bg-gray-50 transition relative"
+                        >
+                            <ShoppingCart size={18} />
+                            <span>Cart</span>
+                        </button>
 
-                            <button
-                                onClick={() => setOpenLoginModal(true)}
-                                className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-400 hover:bg-gray-100 transition"
-                            >
-                                <User size={18} />
-                                <span className="text-sm">Profile</span>
-                            </button>
+                        <button
+                            onClick={() => setOpenLoginModal(true)}
+                            className="flex items-center gap-2 px-3 py-2 text-sm border border-gray-200 rounded-md hover:bg-gray-50 transition"
+                        >
+                            <User size={18} />
+                            <span>Profile</span>
+                        </button>
 
-                        </div>
                     </div>
                 </div>
             </header>

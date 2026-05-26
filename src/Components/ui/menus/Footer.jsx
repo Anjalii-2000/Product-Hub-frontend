@@ -4,88 +4,158 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#020617] text-white">
-      
-      <div className="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-4 gap-10 text-center md:text-left">
-        
-        {/* Brand */}
-        <div className="flex flex-col items-center md:items-start">
-          <Link to="/" className="mb-4">
-            <img src={logo} alt="logo" className="h-14 object-contain" />
-          </Link>
-          <p className="text-gray-300 text-sm leading-relaxed">
-            High-quality products designed to make your life better. Trusted by thousands worldwide.
-          </p>
-        </div>
+    <footer className="bg-[#111111] text-gray-300 mt-16">
 
-        {/* Products */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4 border-b border-gray-600 inline-block pb-1">
-            Products
-          </h3>
-          <ul className="space-y-2 text-gray-300">
-            <li className="hover:text-blue-400 transition cursor-pointer">New Arrivals</li>
-            <li className="hover:text-blue-400 transition cursor-pointer">Best Sellers</li>
-            <li className="hover:text-blue-400 transition cursor-pointer">Discounts</li>
-            <li className="hover:text-blue-400 transition cursor-pointer">Categories</li>
-          </ul>
-        </div>
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
-        {/* Company */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4 border-b border-gray-600 inline-block pb-1">
-            Company
-          </h3>
-          <ul className="space-y-2 text-gray-300">
-            <li className="hover:text-blue-400 transition cursor-pointer">About Us</li>
-            <li className="hover:text-blue-400 transition cursor-pointer">Careers</li>
-            <li className="hover:text-blue-400 transition cursor-pointer">Blog</li>
-            <li className="hover:text-blue-400 transition cursor-pointer">Contact</li>
-          </ul>
-        </div>
+        <div className="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-        {/* Newsletter */}
-        <div className="flex flex-col items-center md:items-start">
-          <h3 className="text-lg font-semibold mb-4 border-b border-gray-600 inline-block pb-1">
-            Stay Updated
-          </h3>
+          {/* Brand */}
+          <div className="pr-4">
+            <Link to="/" className="inline-block mb-6">
+              <img
+                src={logo}
+                alt="logo"
+                className="h-10 object-contain"
+              />
+            </Link>
 
-          <p className="text-gray-300 text-sm mb-4 text-center md:text-left">
-            Subscribe to get special offers & updates.
-          </p>
+            <p className="text-sm text-gray-400 leading-7">
+              Premium shopping experience with quality products,
+              fast delivery, and trusted customer support.
+            </p>
 
-          <div className="flex w-full max-w-xs">
-            <input
-              type="email"
-              placeholder="Enter email"
-              className="w-full px-3 py-2 rounded-l-md bg-gray-200 text-black focus:outline-none"
-            />
-            <button className="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700 transition">
-              Subscribe
-            </button>
-          </div>
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 mt-6">
 
-          {/* Social Icons */}
-          <div className="flex gap-4 mt-6">
-            <div className="p-2 bg-gray-700 rounded-full hover:bg-blue-600 transition cursor-pointer shadow-md hover:scale-110">
-              <FaFacebookF />
-            </div>
-            <div className="p-2 bg-gray-700 rounded-full hover:bg-sky-400 transition cursor-pointer shadow-md hover:scale-110">
-              <FaTwitter />
-            </div>
-            <div className="p-2 bg-gray-700 rounded-full hover:bg-pink-500 transition cursor-pointer shadow-md hover:scale-110">
-              <FaInstagram />
-            </div>
-            <div className="p-2 bg-gray-700 rounded-full hover:bg-blue-500 transition cursor-pointer shadow-md hover:scale-110">
-              <FaLinkedinIn />
+              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
+                <FaFacebookF size={13} />
+              </button>
+
+              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
+                <FaTwitter size={13} />
+              </button>
+
+              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
+                <FaInstagram size={13} />
+              </button>
+
+              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
+                <FaLinkedinIn size={13} />
+              </button>
+
             </div>
           </div>
+
+          {/* Shop */}
+          <div>
+            <h3 className="text-white text-sm font-semibold tracking-wide mb-5">
+              SHOP
+            </h3>
+
+            <ul className="space-y-3 text-sm">
+              <li className="hover:text-white cursor-pointer transition">
+                New Arrivals
+              </li>
+
+              <li className="hover:text-white cursor-pointer transition">
+                Best Sellers
+              </li>
+
+              <li className="hover:text-white cursor-pointer transition">
+                Featured Products
+              </li>
+
+              <li className="hover:text-white cursor-pointer transition">
+                Sale Collection
+              </li>
+            </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <h3 className="text-white text-sm font-semibold tracking-wide mb-5">
+              SUPPORT
+            </h3>
+
+            <ul className="space-y-3 text-sm">
+              <li className="hover:text-white cursor-pointer transition">
+                Contact Us
+              </li>
+
+              <li className="hover:text-white cursor-pointer transition">
+                Shipping Policy
+              </li>
+
+              <li className="hover:text-white cursor-pointer transition">
+                Returns & Refunds
+              </li>
+
+              <li className="hover:text-white cursor-pointer transition">
+                FAQs
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-white text-sm font-semibold tracking-wide mb-5">
+              NEWSLETTER
+            </h3>
+
+            <p className="text-sm text-gray-400 leading-6 mb-5">
+              Get updates about new collections and exclusive offers.
+            </p>
+
+            <div className="flex items-center border border-gray-700 rounded-md overflow-hidden bg-[#181818]">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="flex-1 bg-transparent px-4 py-3 text-sm text-white placeholder:text-gray-500 focus:outline-none"
+              />
+
+              <button className="bg-white text-black px-5 py-3 text-sm font-medium hover:bg-gray-200 transition">
+                Subscribe
+              </button>
+            </div>
+          </div>
+
         </div>
+
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-700 text-center py-5 text-gray-400 text-sm">
-        © {new Date().getFullYear()} <span className="text-white font-medium">YourBrand</span>. All rights reserved.
+      {/* Bottom */}
+      <div className="border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+
+          <div className="py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+
+            <p className="text-center md:text-left">
+              © {new Date().getFullYear()}{" "}
+              <span className="text-gray-200 font-medium">
+                YourBrand
+              </span>
+              . All rights reserved.
+            </p>
+
+            <div className="flex items-center gap-6">
+              <span className="hover:text-white cursor-pointer transition">
+                Privacy Policy
+              </span>
+
+              <span className="hover:text-white cursor-pointer transition">
+                Terms of Service
+              </span>
+
+              <span className="hover:text-white cursor-pointer transition">
+                Help Center
+              </span>
+            </div>
+
+          </div>
+
+        </div>
       </div>
 
     </footer>

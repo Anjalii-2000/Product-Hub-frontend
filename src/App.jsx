@@ -14,9 +14,7 @@ import Customer from './pages/Dashboard/Customer';
 import CustomerHome from './Components/Customer/CustomerHome/CustomerHome';
 import CustomerProduct from './Components/Customer/products/CustomerProduct';
 import CustomerCart from './pages/Customer/CustomerCart';
-import CustomerWishlist from './pages/Customer/CustomerWishlist';
-import CheckoutForm from './Payment/CheckoutForm';
-import StripeProvider from './Payment/StripeProvider';
+import CustomerWishlist from './pages/Customer/CustomerWishlist'
 import CustomerEditProfile from './Components/Customer/CustomerEditProfile/CustomerEditProfile';
 
 
@@ -40,7 +38,6 @@ function App() {
             <Seller />
           </PrivateRoute>
           } />
-
           <Route path='/dashboard/customer/product' element={<PrivateRoute role="customer"><CustomerProduct /> </PrivateRoute>} />
           <Route path="/dashboard/customer" element={
             <PrivateRoute role="customer">
@@ -51,7 +48,7 @@ function App() {
             <Route path='/dashboard/customer/customercart' element={<CustomerCart />} />
             <Route path='/dashboard/customer/customerwishlist' element={<CustomerWishlist />} />
           </Route>
-          <Route path='/dashboard/customer/checkout' element={<StripeProvider><CheckoutForm /></StripeProvider>} />
+          
           <Route path='/dashboard/customer/editprofile' element={<CustomerEditProfile />} />
         </Routes>
       </BrowserRouter>

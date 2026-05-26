@@ -4,10 +4,9 @@ import { Header } from "../../Components/ui/menus/Header";
 import Slider from "../../Components/ui/menus/Slider";
 import ProductData from "../../Components/ProductData/ProductData";
 import Footer from "../../Components/ui/menus/Footer";
-import StripeProvider from "../../Payment/StripeProvider";
-
 
 const Home = () => {
+
     const [getAllProduct, setAllProduct] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -29,59 +28,57 @@ const Home = () => {
 
     const indexOfLast = currentPage * itemsPerPage;
     const indexOfFirst = indexOfLast - itemsPerPage;
-    const currentProducts = getAllProduct.slice(indexOfFirst, indexOfLast);
 
-    const totalPages = Math.ceil(getAllProduct.length / itemsPerPage);
+    const currentProducts =
+        getAllProduct.slice(indexOfFirst, indexOfLast);
 
     const fetchAllData = async (cat = "") => {
         try {
+            console.log("API function called");
+
             setLoading(true);
             setError(false);
 
             const url = cat
                 ? `http://localhost:3000/api/getallproduct?category=${cat}`
-                : "http://localhost:3000/api/getallproduct";
+                : `http://localhost:3000/api/getallproduct`;
+
+            console.log(url);
 
             const response = await axios.get(url);
 
+            console.log(response.data);
+
             setAllProduct(response?.data?.data || []);
+
         } catch (err) {
-            console.error("Error fetching data:", err);
+            console.log(err);
             setError(true);
+
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        setCurrentPage(1);
         fetchAllData(category);
+        setCurrentPage(1);
     }, [category]);
 
     return (
         <>
             <Header setCategory={setCategory} />
             <Slider />
-        
 
+            <ProductData
+                products={currentProducts}
+                loading={loading}
+                error={error}
+                wishlist={wishlist}
+                toggleWishlist={toggleWishlist}
+            />
 
-
-            <div className="font-serif pt-[30px] pb-[80px] bg-gray-50 min-h-screen px-6 md:px-12">
-
-
-                <ProductData
-                    products={currentProducts}
-                    loading={loading}
-                    error={error}
-                    wishlist={wishlist}
-                    toggleWishlist={toggleWishlist}
-                />
-
-            </div>
-            <div className="mt-16" >
-                <Footer />
-            </div>
-
+            <Footer />
         </>
     );
 };

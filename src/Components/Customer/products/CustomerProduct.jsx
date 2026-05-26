@@ -146,13 +146,12 @@ const CustomerProduct = ({
                         key={item._id}
                         className="flex flex-col h-full"
                     >
-
                         <Link
                             to={`/product/${item._id}`}
-                            className="relative flex-1 flex flex-col bg-gray-700 rounded-3xl shadow-sm hover:shadow-xl transition overflow-hidden border"
+                            className="relative flex-1 flex flex-col bg-white rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-200 overflow-hidden"
                         >
 
-                            {/*  Wishlist Button */}
+                            {/* Wishlist Button */}
                             <button
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -162,52 +161,51 @@ const CustomerProduct = ({
                                         dispatch(removeFromWishlist(item._id));
                                     } else {
                                         dispatch(addToWishlist(item));
-
                                     }
                                 }}
-                                className="absolute top-3 right-3 z-10 bg-black/40 p-2 rounded-full"
+                                className="absolute top-3 right-3 z-10 bg-white border border-gray-200 p-2 rounded-full shadow-sm"
                             >
                                 <Heart
-                                    size={22}
+                                    size={20}
                                     className={`transition-all duration-300 ${isWishlisted
-                                        ? "fill-red-500 text-red-500"
-                                        : "text-white"
+                                            ? "fill-red-500 text-red-500"
+                                            : "text-gray-500"
                                         }`}
                                 />
                             </button>
 
                             {/* Product Image */}
-                            <div className="bg-gray-100 p-3 flex justify-center items-center h-40">
+                            <div className="bg-gray-50 p-5 flex justify-center items-center h-52">
                                 <img
                                     src={item.image}
                                     alt={item.productName}
-                                    className="h-full object-contain"
+                                    className="h-full object-contain hover:scale-105 transition-transform duration-300"
                                 />
                             </div>
 
                             {/* Product Info */}
-                            <div className="p-4 flex-1 text-white">
+                            <div className="p-4 flex-1 flex flex-col">
 
-                                <h2 className="font-semibold">
+                                <h2 className="font-medium text-gray-900 text-sm line-clamp-2">
                                     {item.productName}
                                 </h2>
 
-                                <p className="text-sm text-gray-300">
+                                <p className="text-sm text-gray-500 mt-1 line-clamp-2">
                                     {item.description}
                                 </p>
 
-                                <div className="flex justify-between mt-3">
-                                    <span className="font-bold text-indigo-300">
+                                <div className="flex items-center justify-between mt-4">
+                                    <span className="font-semibold text-lg text-gray-900">
                                         ₹{item.price}
                                     </span>
 
-                                    <span className="text-xs bg-indigo-600 px-2 py-1 rounded text-white">
+                                    <span className="text-xs border border-gray-300 px-2 py-1 rounded-full text-gray-600">
                                         {item.category}
                                     </span>
                                 </div>
 
                                 {/* Actions */}
-                                <div className="mt-4 flex gap-2">
+                                <div className="mt-5 flex gap-2">
 
                                     <div className="flex-1">
 
@@ -216,22 +214,22 @@ const CustomerProduct = ({
                                                 onClick={(e) =>
                                                     handleAddToCart(e, item)
                                                 }
-                                                className="w-full bg-black text-white py-2 rounded-full text-sm"
+                                                className="w-full bg-black text-white py-2.5 rounded-full text-sm font-medium hover:bg-gray-900 transition"
                                             >
-                                                Add To Cart
+                                                Add to Cart
                                             </button>
                                         ) : (
-                                            <div className="w-full h-[40px] text-black border rounded-full flex justify-center items-center gap-4 bg-white">
+                                            <div className="w-full h-[42px] border border-gray-300 rounded-full flex justify-center items-center gap-4 bg-white">
                                                 <button
                                                     onClick={(e) =>
                                                         handleDecrease(e, item._id)
                                                     }
-                                                    className="font-bold px-2"
+                                                    className="font-semibold px-2 text-gray-700"
                                                 >
                                                     -
                                                 </button>
 
-                                                <span className="text-black px-2">
+                                                <span className="text-gray-900 text-sm">
                                                     {cartItem.quantity}
                                                 </span>
 
@@ -239,7 +237,7 @@ const CustomerProduct = ({
                                                     onClick={(e) =>
                                                         handleAddToCart(e, item)
                                                     }
-                                                    className="font-bold px-2 text-black"
+                                                    className="font-semibold px-2 text-gray-700"
                                                 >
                                                     +
                                                 </button>
@@ -252,7 +250,7 @@ const CustomerProduct = ({
                                         onClick={(e) =>
                                             handleBuyNow(e, item)
                                         }
-                                        className="flex-1 bg-blue-500 text-white py-2 rounded-full text-sm"
+                                        className="flex-1 border border-black text-black py-2.5 rounded-full text-sm font-medium hover:bg-black hover:text-white transition"
                                     >
                                         Buy Now
                                     </button>
@@ -262,7 +260,6 @@ const CustomerProduct = ({
                             </div>
 
                         </Link>
-
                     </div>
                 );
             })}
