@@ -62,31 +62,32 @@ export default function Products({
             <div className="flex items-center justify-between mb-8">
 
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">
+                    <h1 className="text-2xl font-semibold text-gray-900">
                         Products
                     </h1>
 
-                    <p className="text-gray-500 mt-1">
+                    <p className="text-gray-500 text-sm mt-1">
                         Manage all your products here
                     </p>
                 </div>
 
                 <button
                     onClick={() => setShowModal(true)}
-                    className="bg-[#6b61e2] hover:bg-[#5b51d5] text-white px-5 py-3 rounded-xl shadow-md transition duration-300"
+                    className="border border-gray-300 text-gray-700 px-5 py-2.5 rounded-lg hover:bg-gray-50 transition text-sm"
                 >
                     + Add Product
                 </button>
+
             </div>
 
             {/* EMPTY STATE */}
             {products.length === 0 ? (
-                <div className="bg-white rounded-2xl shadow-md p-10 text-center">
-                    <h2 className="text-2xl font-semibold text-gray-700">
+                <div className="bg-white border border-gray-200 rounded-xl p-10 text-center">
+                    <h2 className="text-xl font-semibold text-gray-800">
                         No Products Found
                     </h2>
 
-                    <p className="text-gray-500 mt-2">
+                    <p className="text-gray-500 mt-2 text-sm">
                         Start by adding your first product
                     </p>
                 </div>
@@ -97,67 +98,63 @@ export default function Products({
                     {[...products].reverse().map((item) => (
                         <div
                             key={item._id}
-                            className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 border border-gray-100"
+                            className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-sm transition"
                         >
 
                             {/* IMAGE */}
-                            <div className="overflow-hidden">
+                            <div className="border-b border-gray-100">
                                 {item.image && (
                                     <img
                                         src={item.image}
                                         alt={item.productName}
-                                        className="h-52 w-full object-cover hover:scale-105 transition duration-500"
+                                        className="h-48 w-full object-contain bg-white"
                                     />
                                 )}
                             </div>
 
                             {/* CONTENT */}
-                            <div className="p-5">
+                            <div className="p-4">
 
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-start justify-between gap-3">
 
-                                    <h2 className="font-bold text-lg text-gray-800 truncate">
+                                    <h2 className="font-medium text-gray-900 text-sm line-clamp-2">
                                         {item.productName}
                                     </h2>
 
-                                    <span className="bg-green-100 text-green-700 text-sm px-3 py-1 rounded-full">
+                                    <span className="text-sm font-medium text-gray-900">
                                         ₹{item.price}
                                     </span>
 
                                 </div>
 
-                                <p className="text-sm text-gray-500 mt-3 line-clamp-2">
+                                <p className="text-xs text-gray-500 mt-2 line-clamp-2">
                                     {item.description}
                                 </p>
 
                                 {/* CATEGORY */}
-                                <div className="mt-4">
-                                    <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">
+                                <div className="mt-3">
+                                    <span className="border border-gray-200 text-gray-600 px-2 py-1 rounded text-xs">
                                         {item.category}
                                     </span>
                                 </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">
-                                        {sellerName}
-                                    </p>
-                                </div>
 
+                                <p className="text-xs text-gray-400 mt-2">
+                                    {sellerName}
+                                </p>
 
                                 {/* BUTTONS */}
-                                <div className="flex gap-3 mt-5">
+                                <div className="flex gap-2 mt-4">
 
-                                    {/* EDIT */}
                                     <button
                                         onClick={() => handleEdit(item)}
-                                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl transition"
+                                        className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm transition hover:bg-gray-100 hover:border-gray-400"
                                     >
                                         Edit
                                     </button>
 
-                                    {/* DELETE */}
                                     <button
                                         onClick={() => handleDelete(item._id)}
-                                        className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl transition"
+                                        className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm transition hover:bg-gray-100 hover:border-gray-400"
                                     >
                                         Delete
                                     </button>

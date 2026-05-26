@@ -51,18 +51,20 @@ export default function EditProfile({
     if (!showProfileModal) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
 
-            <div className="bg-white w-[450px] p-6 rounded-xl">
+            <div className="bg-white w-[450px] max-w-[95%] p-6 rounded-xl border border-gray-200 shadow-lg">
 
-                <div className="flex justify-between mb-5">
+                {/* Header */}
+                <div className="flex justify-between items-center mb-6">
 
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="text-xl font-semibold text-gray-900">
                         Edit Profile
                     </h2>
 
                     <button
                         onClick={() => setShowProfileModal(false)}
+                        className="text-gray-500 hover:text-black transition"
                     >
                         ✖
                     </button>
@@ -80,7 +82,7 @@ export default function EditProfile({
                         placeholder="Name"
                         value={profile.name}
                         onChange={handleProfileChange}
-                        className="w-full border p-3 rounded-xl"
+                        className="w-full border border-gray-200 p-3 rounded-lg text-sm focus:outline-none focus:border-gray-400"
                     />
 
                     <input
@@ -89,7 +91,7 @@ export default function EditProfile({
                         placeholder="Phone"
                         value={profile.phone}
                         onChange={handleProfileChange}
-                        className="w-full border p-3 rounded-xl"
+                        className="w-full border border-gray-200 p-3 rounded-lg text-sm focus:outline-none focus:border-gray-400"
                     />
 
                     <input
@@ -98,7 +100,7 @@ export default function EditProfile({
                         placeholder="Password"
                         value={profile.password}
                         onChange={handleProfileChange}
-                        className="w-full border p-3 rounded-xl"
+                        className="w-full border border-gray-200 p-3 rounded-lg text-sm focus:outline-none focus:border-gray-400"
                     />
 
                     <input
@@ -107,12 +109,13 @@ export default function EditProfile({
                         placeholder="Confirm Password"
                         value={profile.confirmPassword}
                         onChange={handleProfileChange}
-                        className="w-full border p-3 rounded-xl"
+                        className="w-full border border-gray-200 p-3 rounded-lg text-sm focus:outline-none focus:border-gray-400"
                     />
 
+                    {/* Save Button */}
                     <button
                         type="submit"
-                        className="w-full bg-black text-white py-3 rounded-xl"
+                        className="w-full bg-black text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-900 transition"
                     >
                         Save Changes
                     </button>

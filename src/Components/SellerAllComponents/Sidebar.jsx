@@ -28,55 +28,62 @@ export default function Sidebar({
     };
 
     return (
-        <div className="w-64 bg-white h-screen p-6 shadow border-r">
+        <div className="w-72 min-h-screen bg-white border-r border-gray-200 flex flex-col">
 
-            <h2 className="font-bold text-lg text-black mb-6">
-                Seller Panel
-            </h2>
+            {/* Header */}
+            <div className="px-6 py-8 border-b border-gray-100">
+                <h2 className="text-lg font-semibold text-gray-900">
+                    Seller Panel
+                </h2>
+            </div>
 
-            <ul className="space-y-2">
+            {/* Menu */}
+            <div className="flex-1 px-4 py-6 flex flex-col gap-2">
 
                 {/* DASHBOARD */}
-                <li
+                <button
                     onClick={() => setView("dashboard")}
-                    className={`cursor-pointer px-4 py-2 rounded-lg font-medium
-                    ${view === "dashboard"
-                        ? "bg-[#6b61e2] text-white"
-                        : "text-black hover:bg-gray-100"
-                    }`}
+                    className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium transition
+      ${view === "dashboard"
+                            ? "bg-gray-100 text-black"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
                 >
                     Dashboard
-                </li>
+                </button>
 
                 {/* EDIT PROFILE */}
-                <li
+                <button
                     onClick={() => setShowProfileModal(true)}
-                    className="cursor-pointer px-4 py-2 rounded-lg font-medium text-black hover:bg-gray-100"
+                    className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
                 >
                     Edit Profile
-                </li>
+                </button>
 
                 {/* PRODUCTS */}
-                <li
+                <button
                     onClick={() => setView("products")}
-                    className={`cursor-pointer px-4 py-2 rounded-lg font-medium
-                    ${view === "products"
-                        ? "bg-[#6b61e2] text-white"
-                        : "text-black hover:bg-gray-100"
-                    }`}
+                    className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium transition
+      ${view === "products"
+                            ? "bg-gray-100 text-black"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
                 >
                     Products
-                </li>
-              
-                {/* LOGOUT */}
-                <li
+                </button>
+
+            </div>
+
+            {/* Logout */}
+            <div className="p-4 border-t border-gray-100">
+                <button
                     onClick={handleLogout}
-                    className="cursor-pointer px-4 py-2 rounded-lg font-medium text-red-600 hover:bg-red-50"
+                    className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
                 >
                     Logout
-                </li>
+                </button>
+            </div>
 
-            </ul>
         </div>
     );
 }
