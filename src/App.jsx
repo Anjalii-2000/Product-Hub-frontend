@@ -16,7 +16,8 @@ import CustomerProduct from './Components/Customer/products/CustomerProduct';
 import CustomerCart from './pages/Customer/CustomerCart';
 import CustomerWishlist from './pages/Customer/CustomerWishlist'
 import CustomerEditProfile from './Components/Customer/CustomerEditProfile/CustomerEditProfile';
-
+import Success from './pages/Payment/Success';
+import Cancel from './pages/Payment/Cancel';
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
           </Route>
           
           <Route path='/dashboard/customer/editprofile' element={<CustomerEditProfile />} />
+          <Route path='/payment-success' element={<Success />} />
+          <Route path='/payment-cancel' element={<Cancel />} />
         </Routes>
       </BrowserRouter>
     </>

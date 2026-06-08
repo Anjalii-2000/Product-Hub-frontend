@@ -103,14 +103,11 @@ const RegisterPage = () => {
       );
 
       setTimeout(() => {
-
-        if (formData.role === "seller") {
-          navigate("/dashboard/seller");
-        } else {
-          navigate("/dashboard/customer");
-        }
-
-      }, 1000);
+        window.location.href =
+          formData.role === "seller"
+            ? "/dashboard/seller"
+            : "/dashboard/customer";
+      }, 1500);
 
       setFormData({
         firstName: "",

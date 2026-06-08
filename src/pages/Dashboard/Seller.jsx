@@ -20,7 +20,7 @@ export default function Seller() {
     const [form, setForm] = useState({
         productName: "",
         price: "",
-        category: "Electronics",
+        category: "Electronic",
         description: "",
         image: null
     });

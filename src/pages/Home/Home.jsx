@@ -11,6 +11,8 @@ const Home = () => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [category, setCategory] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
     const [wishlist, setWishlist] = useState([]);
 
     const toggleWishlist = (productId) => {
@@ -22,7 +24,16 @@ const Home = () => {
             }
         });
     };
-
+    const checkAuth = async () => {
+        try {
+            await axios.get("http://localhost:3000/api/me", {
+                withCredentials: true
+            });
+            setIsLoggedIn(true);
+        } catch {
+            setIsLoggedIn(false);
+        }
+    };
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
 
@@ -61,6 +72,7 @@ const Home = () => {
     };
 
     useEffect(() => {
+        checkAuth();
         fetchAllData(category);
         setCurrentPage(1);
     }, [category]);
@@ -71,7 +83,7 @@ const Home = () => {
             <Slider />
 
             <ProductData
-                products={currentProducts}
+                products={getAllProduct}
                 loading={loading}
                 error={error}
                 wishlist={wishlist}

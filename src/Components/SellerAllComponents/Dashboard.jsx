@@ -3,15 +3,18 @@ import React from "react";
 export default function Dashboard({ products }) {
 
     const electronicsCount = products.filter(
-        (item) => item.category === "Electronics"
+        (item) => item.category === "Electronic"
     ).length;
 
     const foodCount = products.filter(
         (item) => item.category === "Food"
     ).length;
+    const clothingCount = products.filter(
+        (item) => item.category === "Clothing"
+    ).length;
 
     const booksCount = products.filter(
-        (item) => item.category === "Books"
+        (item) => item.category === "Book"
     ).length;
 
     return (
@@ -34,12 +37,23 @@ export default function Dashboard({ products }) {
 
                 <div className="bg-white border border-gray-200 p-5 rounded-xl shadow-sm hover:shadow-md transition">
                     <p className="text-sm text-gray-500">
-                        Electronics
+                        Electronic
                     </p>
                     <h2 className="text-2xl font-semibold text-gray-900 mt-2">
                         {electronicsCount}
                     </h2>
                 </div>
+
+
+                <div className="bg-white border border-gray-200 p-5 rounded-xl shadow-sm hover:shadow-md transition">
+                    <p className="text-sm text-gray-500">
+                        Clothing
+                    </p>
+                    <h2 className="text-2xl font-semibold text-gray-900 mt-2">
+                        {clothingCount}
+                    </h2>
+                </div>
+
 
                 <div className="bg-white border border-gray-200 p-5 rounded-xl shadow-sm hover:shadow-md transition">
                     <p className="text-sm text-gray-500">
@@ -52,7 +66,8 @@ export default function Dashboard({ products }) {
 
                 <div className="bg-white border border-gray-200 p-5 rounded-xl shadow-sm hover:shadow-md transition">
                     <p className="text-sm text-gray-500">
-                        Books
+                        Book
+
                     </p>
                     <h2 className="text-2xl font-semibold text-gray-900 mt-2">
                         {booksCount}

@@ -76,31 +76,28 @@ const CustomerProduct = ({
             navigate("/login");
             return;
         }
-        navigate("/dashboard/customer/checkout", {
-            state: {
-                product
-            }
-        });
+
         try {
 
             const stripe = await stripePromise;
+            console.log("stripe", stripe);
 
             const { data } = await axios.post(
                 "http://localhost:3000/api/payment/create-checkout-session",
                 {
-                    productName: product.productName,
-                    price: product.price,
-                    quantity: 1,
-                    image: product.image
+                    productId: product._id
+                },
+                {
+                    withCredentials: true
                 }
             );
 
-            await stripe.redirectToCheckout({
-                sessionId: data.id
-            });
+          window.location.href = data.url;
 
         } catch (error) {
+
             console.log(error);
+
             toast.error("Payment failed");
         }
     };
@@ -168,8 +165,8 @@ const CustomerProduct = ({
                                 <Heart
                                     size={20}
                                     className={`transition-all duration-300 ${isWishlisted
-                                            ? "fill-red-500 text-red-500"
-                                            : "text-gray-500"
+                                        ? "fill-red-500 text-red-500"
+                                        : "text-gray-500"
                                         }`}
                                 />
                             </button>
@@ -250,7 +247,7 @@ const CustomerProduct = ({
                                         onClick={(e) =>
                                             handleBuyNow(e, item)
                                         }
-                                        className="flex-1 border border-black text-black py-2.5 rounded-full text-sm font-medium hover:bg-black hover:text-white transition"
+                                        className="flex-1 border border-black text-black py-2.5 rounded-full text-sm font-medium hover:bg-blue-400 hover:border-none hover:text-white transition"
                                     >
                                         Buy Now
                                     </button>

@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111111] text-gray-300 mt-16">
+    <footer className="bg-[#0d0d0d] text-gray-400 mt-16">
 
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
-        <div className="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-white/8">
 
           {/* Brand */}
-          <div className="pr-4">
-            <Link to="/" className="inline-block mb-6">
+          <div className="lg:pr-8">
+            <Link to="/" className="inline-block mb-5">
               <img
                 src={logo}
                 alt="logo"
@@ -21,53 +21,44 @@ const Footer = () => {
               />
             </Link>
 
-            <p className="text-sm text-gray-400 leading-7">
+            <p className="text-[13px] text-gray-500 leading-[1.85] mb-6">
               Premium shopping experience with quality products,
               fast delivery, and trusted customer support.
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-3 mt-6">
-
-              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
-                <FaFacebookF size={13} />
+            <div className="flex items-center gap-2">
+              <button className="w-8 h-8 border border-white/10 rounded-md flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-200 text-gray-500">
+                <FaFacebookF size={12} />
               </button>
-
-              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
-                <FaTwitter size={13} />
+              <button className="w-8 h-8 border border-white/10 rounded-md flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-200 text-gray-500">
+                <FaTwitter size={12} />
               </button>
-
-              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
-                <FaInstagram size={13} />
+              <button className="w-8 h-8 border border-white/10 rounded-md flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-200 text-gray-500">
+                <FaInstagram size={12} />
               </button>
-
-              <button className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center hover:border-gray-500 transition">
-                <FaLinkedinIn size={13} />
+              <button className="w-8 h-8 border border-white/10 rounded-md flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-200 text-gray-500">
+                <FaLinkedinIn size={12} />
               </button>
-
             </div>
           </div>
 
           {/* Shop */}
           <div>
-            <h3 className="text-white text-sm font-semibold tracking-wide mb-5">
-              SHOP
+            <h3 className="text-white text-[11px] font-bold tracking-[0.14em] uppercase mb-5">
+              Shop
             </h3>
-
-            <ul className="space-y-3 text-sm">
-              <li className="hover:text-white cursor-pointer transition">
+            <ul className="space-y-3">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 New Arrivals
               </li>
-
-              <li className="hover:text-white cursor-pointer transition">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 Best Sellers
               </li>
-
-              <li className="hover:text-white cursor-pointer transition">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 Featured Products
               </li>
-
-              <li className="hover:text-white cursor-pointer transition">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 Sale Collection
               </li>
             </ul>
@@ -75,24 +66,20 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-            <h3 className="text-white text-sm font-semibold tracking-wide mb-5">
-              SUPPORT
+            <h3 className="text-white text-[11px] font-bold tracking-[0.14em] uppercase mb-5">
+              Support
             </h3>
-
-            <ul className="space-y-3 text-sm">
-              <li className="hover:text-white cursor-pointer transition">
+            <ul className="space-y-3">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 Contact Us
               </li>
-
-              <li className="hover:text-white cursor-pointer transition">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 Shipping Policy
               </li>
-
-              <li className="hover:text-white cursor-pointer transition">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 Returns & Refunds
               </li>
-
-              <li className="hover:text-white cursor-pointer transition">
+              <li className="text-[13px] text-gray-500 hover:text-white cursor-pointer transition-colors duration-150">
                 FAQs
               </li>
             </ul>
@@ -100,22 +87,21 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-white text-sm font-semibold tracking-wide mb-5">
-              NEWSLETTER
+            <h3 className="text-white text-[11px] font-bold tracking-[0.14em] uppercase mb-5">
+              Newsletter
             </h3>
 
-            <p className="text-sm text-gray-400 leading-6 mb-5">
+            <p className="text-[13px] text-gray-500 leading-relaxed mb-5">
               Get updates about new collections and exclusive offers.
             </p>
 
-            <div className="flex items-center border border-gray-700 rounded-md overflow-hidden bg-[#181818]">
+            <div className="flex flex-col gap-2">
               <input
                 type="email"
                 placeholder="Your email address"
-                className="flex-1 bg-transparent px-4 py-3 text-sm text-white placeholder:text-gray-500 focus:outline-none"
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-white/25 transition-colors duration-200"
               />
-
-              <button className="bg-white text-black px-5 py-3 text-sm font-medium hover:bg-gray-200 transition">
+              <button className="w-full bg-white text-black py-2.5 rounded-lg text-[13px] font-semibold hover:bg-gray-100 transition-colors duration-200">
                 Subscribe
               </button>
             </div>
@@ -126,33 +112,25 @@ const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="py-5 flex flex-col md:flex-row items-center justify-between gap-3">
 
-          <div className="py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+          <p className="text-[12px] text-gray-600 text-center md:text-left">
+            © {new Date().getFullYear()}{" "}
+            <span className="text-gray-300 font-medium">YourBrand</span>
+            . All rights reserved.
+          </p>
 
-            <p className="text-center md:text-left">
-              © {new Date().getFullYear()}{" "}
-              <span className="text-gray-200 font-medium">
-                YourBrand
-              </span>
-              . All rights reserved.
-            </p>
-
-            <div className="flex items-center gap-6">
-              <span className="hover:text-white cursor-pointer transition">
-                Privacy Policy
-              </span>
-
-              <span className="hover:text-white cursor-pointer transition">
-                Terms of Service
-              </span>
-
-              <span className="hover:text-white cursor-pointer transition">
-                Help Center
-              </span>
-            </div>
-
+          <div className="flex items-center gap-5">
+            <span className="text-[12px] text-gray-600 hover:text-white cursor-pointer transition-colors duration-150">
+              Privacy Policy
+            </span>
+            <span className="text-[12px] text-gray-600 hover:text-white cursor-pointer transition-colors duration-150">
+              Terms of Service
+            </span>
+            <span className="text-[12px] text-gray-600 hover:text-white cursor-pointer transition-colors duration-150">
+              Help Center
+            </span>
           </div>
 
         </div>

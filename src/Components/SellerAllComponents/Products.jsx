@@ -147,14 +147,14 @@ export default function Products({
 
                                     <button
                                         onClick={() => handleEdit(item)}
-                                        className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm transition hover:bg-gray-100 hover:border-gray-400"
+                                        className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm transition hover:bg-black hover:text-white hover:border-gray-400"
                                     >
                                         Edit
                                     </button>
 
                                     <button
                                         onClick={() => handleDelete(item._id)}
-                                        className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm transition hover:bg-gray-100 hover:border-gray-400"
+                                        className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm transition hover:bg-black hover:text-white hover:border-gray-400"
                                     >
                                         Delete
                                     </button>

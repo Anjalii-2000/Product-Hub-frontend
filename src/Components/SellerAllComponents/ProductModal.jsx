@@ -69,7 +69,7 @@ export default function ProductModal({
             setForm({
                 productName: "",
                 price: "",
-                category: "Electronics",
+                category: "Electronic",
                 description: "",
                 image: null
             });
@@ -158,10 +158,10 @@ export default function ProductModal({
                         onChange={handleChange}
                         className="w-full border border-gray-300 p-3 rounded-lg text-sm focus:outline-none focus:border-gray-500"
                     >
-                        <option>Electronics</option>
-                        <option>Clothing</option>
-                        <option>Food</option>
-                        <option>Books</option>
+                        <option value="Electronic">Electronic</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Food">Food</option>
+                        <option value="Book">Book</option>
                     </select>
 
                     {/* Description */}
